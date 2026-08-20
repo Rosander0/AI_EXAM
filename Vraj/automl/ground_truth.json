@@ -1,0 +1,8 @@
+{
+    "DRISHTI AI DEXIT GLobal Datasets\\01.Candidate was found using a mobile phone in the examination hall..mkv": {"expected_alert": true},
+    "DRISHTI AI DEXIT GLobal Datasets\\02.Candidate was found using a mobile phone in the examination hall..mkv": {"expected_alert": true},
+    "DRISHTI AI DEXIT GLobal Datasets\\03.CCTV Mobile Usage.mkv": {"expected_alert": true},
+    "DRISHTI AI DEXIT GLobal Datasets\\04.CCTV Candidate Talking.mkv": {"expected_alert": true},
+    "DRISHTI AI DEXIT GLobal Datasets\\05.Crowd observed near the reception and verification desk..mp4": {"expected_alert": false},
+    "DRISHTI AI DEXIT GLobal Datasets\\Seat No. 12 was seen taking a piece of paper from the desk.mkv": {"expected_alert": true}
+}

@@ -1,0 +1,10 @@
+event_id,session_id,seat_id,track_id,t_start,t_end,frame_start,frame_end,rule,points,score_after,confidence,severity,reason,clip_path,thumb_path
+evt_0001,sess_20260822_184950,S01,1,13.57,14.65,151,177,head_turn,10.0,10.0,0.95,warning,"Head turned left, 6.0 deviations from own baseline, held 1.1s",,
+evt_0002,sess_20260822_184950,S01,1,26.57,26.57,321,321,object_phone,100.0,100.0,0.21,critical,"Prohibited mobile phone detected at S01 (near left wrist, conf 0.21)",/api/clips/evt_0002,/api/thumbs/evt_0002
+evt_0003,sess_20260822_184950,S01,1,26.9,26.9,325,325,object_phone,100.0,199.2,0.22,critical,"Prohibited mobile phone detected at S01 (near left wrist, conf 0.22)",/api/clips/evt_0003,/api/thumbs/evt_0003
+evt_0004,sess_20260822_184950,S01,1,26.98,26.98,326,326,object_phone,100.0,299.0,0.23,critical,"Prohibited mobile phone detected at S01 (near left wrist, conf 0.23)",/api/clips/evt_0004,/api/thumbs/evt_0004
+evt_0005,sess_20260822_184950,S01,1,27.14,27.14,328,328,object_phone,100.0,398.6,0.24,critical,"Prohibited mobile phone detected at S01 (near left wrist, conf 0.24)",/api/clips/evt_0005,/api/thumbs/evt_0005
+evt_0006,sess_20260822_184950,S01,1,27.31,27.31,330,330,object_phone,100.0,498.2,0.21,critical,"Prohibited mobile phone detected at S01 (near left wrist, conf 0.21)",/api/clips/evt_0006,/api/thumbs/evt_0006
+evt_0007,sess_20260822_184950,S01,1,27.97,27.97,338,338,object_phone,100.0,596.6,0.22,critical,"Prohibited mobile phone detected at S01 (near left wrist, conf 0.22)",/api/clips/evt_0007,/api/thumbs/evt_0007
+evt_0008,sess_20260822_184950,S01,1,28.14,28.14,340,340,object_phone,100.0,696.2,0.21,critical,"Prohibited mobile phone detected at S01 (near left wrist, conf 0.21)",/api/clips/evt_0008,/api/thumbs/evt_0008
+evt_0009,sess_20260822_184950,S01,1,27.72,28.8,322,348,head_turn,10.0,704.6,0.93,critical,"Head turned left, 3.7 deviations from own baseline, held 1.1s",/api/clips/evt_0009,/api/thumbs/evt_0009

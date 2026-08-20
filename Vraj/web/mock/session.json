@@ -1,0 +1,15 @@
+{
+  "session_id": "sess_mock_demo",
+  "source": "datasets/hall_camera_1.mp4",
+  "state": "running",
+  "progress": 0.45,
+  "frames_processed": 1350,
+  "frames_total": 3000,
+  "duration_s": 54.0,
+  "fps_processing": 24.8,
+  "seats_tracked": 4,
+  "events_total": 3,
+  "alerts_total": 1,
+  "config_hash": "7962d3",
+  "started_at": "2026-08-22T10:30:00"
+}

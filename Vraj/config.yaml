@@ -1,0 +1,120 @@
+source:
+  fps_override: null
+  resize_width: 1280
+  reconnect_max_seconds: 30
+  rtsp_buffer_size: 1
+model:
+  pose_weights: models/yolo11m-pose.pt
+  imgsz: 640
+  conf: 0.25
+  keypoint_min_conf: 0.5
+  device: auto
+  half: false
+  frame_skip: 2
+identity:
+  discovery_seconds: 3.0
+  min_seat_persistence: 0.6
+  row_tolerance_ratio: 0.15
+  min_binding_iou: 0.3
+  seat_release_seconds: 20
+  staff_grace_seconds: 4.0
+  max_seat_bindings: 2
+  staff_exclusion_enabled: false
+calibration:
+  seconds: 3
+  min_samples: 10
+  min_spread: 0.02
+  drift_enabled: true
+  drift_window_seconds: 600
+  drift_freeze_score: 30
+features:
+  smoothing_window_seconds: 0.5
+  adjacency_mode: grid
+  adjacency_max_distance_ratio: 1.5
+rules:
+  head_turn:
+    enabled: true
+    deviation_threshold: 2.5
+    min_duration_seconds: 1.0
+    cooldown_seconds: 5.0
+  neighbour_reach:
+    enabled: true
+    min_depth: 0.15
+    min_duration_seconds: 0.8
+    cooldown_seconds: 5.0
+  hidden_hands:
+    enabled: true
+    threshold_seconds: 5.0
+    repeat_seconds: 10.0
+    cooldown_seconds: 5.0
+  turning_back:
+    enabled: true
+    span_ratio: 0.55
+    torso_rotation_threshold: 1.2
+    min_duration_seconds: 1.0
+    cooldown_seconds: 5.0
+  repeated_action:
+    enabled: true
+    count: 3
+    window_seconds: 30.0
+    cooldown_seconds: 10.0
+  candidate_talking:
+    enabled: true
+    min_duration_seconds: 0.8
+    cooldown_seconds: 4.0
+  lap_gazing:
+    enabled: true
+    displacement_threshold: 0.36405338713021307
+    min_duration_seconds: 3.2544232911932127
+    cooldown_seconds: 5.0
+objects:
+  enabled: true
+  weights: models/yolo11m.pt
+  conf: 0.38154238206466895
+  detect_every_n_frames: 2
+  watch_classes:
+  - cell phone
+  - remote
+  - book
+  never_authorized:
+  - cell phone
+  - remote
+  max_association_distance_ratio: 2.5
+  phone_max_area_ratio: 0.2
+  phone_max_abs_pixels: 35000
+  chit_max_area_ratio: 0.15
+  chit_aspect_range:
+  - 0.2
+  - 4.0
+hands:
+  enabled: false
+  min_confidence: 0.5
+  min_duration_seconds: 1.0
+  cooldown_seconds: 5.0
+scoring:
+  decay_rate: 2.0786269034519016
+  alert_threshold: 100
+  realert_seconds: 60
+  late_exam_multiplier: 1.0
+  weights:
+    head_turn: 10
+    hidden_hands: 15
+    neighbour_reach: 30
+    turning_back: 50
+    repeated_action: 25
+    candidate_talking: 40
+    lap_gazing: 80
+    object_phone: 100
+    object_chit: 60
+    object_unregistered: 40
+    hand_phone_grip: 50
+    hand_chit_pinch: 40
+output:
+  run_dir: runs
+  save_video: true
+  save_report: true
+server:
+  host: 127.0.0.1
+  port: 8000
+  stream_fps: 10
+  stream_quality: 70

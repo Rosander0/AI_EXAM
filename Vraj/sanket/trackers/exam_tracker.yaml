@@ -1,0 +1,26 @@
+# BoT-SORT configuration tuned specifically for seated examination invigilation.
+#
+# REASONING & LESSONS LEARNED FROM PREDECESSOR (DRISHTI):
+# 1. Exam students sit still in a fixed seating arrangement for up to 2-3 hours.
+# 2. Generic default trackers assume continuous movement and re-acquire stationary tracks
+#    as new IDs every few frames/minutes (resulting in 34+ track IDs for 4 students).
+# 3. Setting track_buffer to 300 (10-12 seconds at 25-30 fps) keeps lost tracks alive through brief occlusions.
+# 4. new_track_thresh 0.60 prevents transient detection noise from spawning new tracks.
+# 5. gmc_method: none (Camera motion compensation disabled) because exam CCTV cameras are rigidly fixed.
+
+tracker_type: botsort
+track_high_thresh: 0.5
+track_low_thresh: 0.1
+new_track_thresh: 0.60
+track_buffer: 300
+match_thresh: 0.8
+fuse_score: True
+
+# Camera motion compensation (GMC) - disabled for static CCTV
+gmc_method: none
+
+# Re-ID configuration
+proximity_thresh: 0.5
+appearance_thresh: 0.25
+with_reid: False
+model: auto

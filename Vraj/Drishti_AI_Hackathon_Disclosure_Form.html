@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Disclosure of Pre-Existing / Third-Party / Open-Source Material</title>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 12mm 14mm 12mm 14mm;
+        }
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            color: #1a202c;
+            line-height: 1.35;
+            font-size: 8.5pt;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+        }
+        .header-title {
+            font-size: 13pt;
+            font-weight: 800;
+            color: #0f172a;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+        .header-subtitle {
+            font-size: 8.5pt;
+            color: #475569;
+            text-align: center;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1.5px solid #0f172a;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8pt;
+        }
+        th {
+            background-color: #1e293b;
+            color: #ffffff;
+            font-weight: 700;
+            text-align: left;
+            padding: 5px 6px;
+            border: 1px solid #1e293b;
+            text-transform: uppercase;
+            font-size: 7.5pt;
+            letter-spacing: 0.3px;
+        }
+        td {
+            padding: 4.5px 6px;
+            border: 1px solid #cbd5e1;
+            vertical-align: middle;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        .comp-title {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 8pt;
+        }
+        .comp-detail {
+            font-family: 'Consolas', monospace;
+            font-size: 7pt;
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-title">Disclosure of Pre-Existing / Third-Party / Open-Source Material</div>
+    <div class="header-subtitle">Submitted in accordance with Section 10 &amp; Clause 1.3 of the Hackathon Student Undertaking</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Material / Component</th>
+                <th style="width: 19%;">Source / Owner</th>
+                <th style="width: 18%;">Licence / Permission</th>
+                <th style="width: 38%;">Purpose</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="comp-title">YOLO11 Pose Model</div>
+                    <div class="comp-detail">yolo11m-pose.pt / yolo11n-pose.pt</div>
+                </td>
+                <td>Ultralytics Inc.</td>
+                <td>AGPL-3.0 / Open Source</td>
+                <td>Multi-person 17-keypoint skeletal pose tracking for candidate posture, head yaw/pitch, and reaching detection.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">YOLO11 Object Model</div>
+                    <div class="comp-detail">yolo11m.pt / yolo11n.pt</div>
+                </td>
+                <td>Ultralytics Inc.</td>
+                <td>AGPL-3.0 / Open Source</td>
+                <td>Real-time identification of prohibited items (cell phones, smart devices, chits, and unauthorized materials).</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">MediaPipe Hand Landmarker</div>
+                    <div class="comp-detail">hand_landmarker.task</div>
+                </td>
+                <td>Google LLC</td>
+                <td>Apache License 2.0</td>
+                <td>21-point 3D hand keypoint extraction to detect phone holding posture and candidate paper-chit pinching gestures.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">MediaPipe Gesture Recognizer</div>
+                    <div class="comp-detail">gesture_recognizer.task</div>
+                </td>
+                <td>Google LLC</td>
+                <td>Apache License 2.0</td>
+                <td>Fine-grained hand gesture classification on candidate crops for anomalous hand activity heuristics.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">OpenCV (opencv-python)</div>
+                    <div class="comp-detail">cv2 v4.8+</div>
+                </td>
+                <td>OpenCV Team</td>
+                <td>Apache License 2.0</td>
+                <td>Video stream ingestion, frame scaling, cropping candidate bounding boxes, and HUD/overlay canvas rendering.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">PyTorch (torch)</div>
+                    <div class="comp-detail">torch v2.0+</div>
+                </td>
+                <td>Meta / PyTorch Foundation</td>
+                <td>Modified BSD</td>
+                <td>Deep learning runtime backend and accelerated tensor execution across CPU / CUDA / MPS hardware.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">FastAPI</div>
+                    <div class="comp-detail">fastapi v0.100+</div>
+                </td>
+                <td>Tiangolo (Sebasti&aacute;n Ram&iacute;rez)</td>
+                <td>MIT License</td>
+                <td>Asynchronous backend REST API framework for configuration, session management, and telemetry endpoints.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">Uvicorn</div>
+                    <div class="comp-detail">uvicorn v0.23+</div>
+                </td>
+                <td>Encode OSS</td>
+                <td>BSD 3-Clause</td>
+                <td>High-performance ASGI server for delivering multipart MJPEG live video proctoring stream to the frontend.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">NumPy</div>
+                    <div class="comp-detail">numpy v1.24+</div>
+                </td>
+                <td>NumPy Developers</td>
+                <td>BSD 3-Clause</td>
+                <td>Vector mathematics, Euclidean distance, 3D coordinate geometry, head yaw/pitch angles, and spatial IOU.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">PyYAML &amp; Pydantic</div>
+                    <div class="comp-detail">pyyaml v6.0+ / pydantic v2.0+</div>
+                </td>
+                <td>Open Source Community</td>
+                <td>MIT License</td>
+                <td>Declarative YAML configuration management (config.yaml) and strict data schema parsing/validation.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">SQLite (sqlite3)</div>
+                    <div class="comp-detail">Python Standard Library</div>
+                </td>
+                <td>Public Domain</td>
+                <td>Public Domain</td>
+                <td>Local relational database for persistent session storage, detected suspicious events, and audit logs.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">React &amp; ReactDOM</div>
+                    <div class="comp-detail">react.min.js / react-dom.min.js</div>
+                </td>
+                <td>Meta Platforms, Inc.</td>
+                <td>MIT License</td>
+                <td>Declarative single-page proctoring dashboard UI for live monitoring, seat grid status, and anomaly alerts.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">Babel Standalone</div>
+                    <div class="comp-detail">babel.min.js</div>
+                </td>
+                <td>Babel Team</td>
+                <td>MIT License</td>
+                <td>Client-side JSX and ES6 script transpilation directly inside the browser runtime without build dependencies.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">Hackathon CCTV Datasets</div>
+                    <div class="comp-detail">DRISHTI AI DEXIT Datasets</div>
+                </td>
+                <td>DEXIT Global Limited</td>
+                <td>Proprietary (Hackathon Authorized)</td>
+                <td>Official CCTV footage used for pipeline calibration, rule validation, multi-camera testing, and anomaly verification.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="comp-title">AI Coding Assistants</div>
+                    <div class="comp-detail">Claude / Gemini / Antigravity</div>
+                </td>
+                <td>Anthropic / Google DeepMind</td>
+                <td>Permitted under Clause 6</td>
+                <td>Assistance in algorithmic scaffolding, automated unit testing harness formulation, and technical documentation drafting.</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
