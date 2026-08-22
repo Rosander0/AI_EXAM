@@ -78,10 +78,26 @@ def list_sessions() -> List[SessionSchema]:
 def create_session(payload: SessionCreateRequest) -> SessionSchema:
     """Starts a new invigilation session in a background thread."""
     if runner.is_busy():
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail=f"Another session is currently active: {runner.active_session_id}",
-        )
+        # Gracefully stop the currently active session before starting a new one
+        if hasattr(runner, "stop_session"):
+            runner.stop_session()
+        elif hasattr(runner, "stop"):
+            runner.stop()
+
+    # Validate source
+    source_path = payload.source
+    if not source_path.startswith(("rtsp://", "http://", "https://")) and not source_path.isdigit():
+        if not Path(source_path).is_file():
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Video file not found: {source_path}",
+            )
+
+    try:
+        session_rec = runner.start_session(source_path, config_overrides=payload.config_overrides)
+        return SessionSchema(**session_rec)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
     # Validate source
     source_path = payload.source

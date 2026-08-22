@@ -53,11 +53,13 @@ class JobRunner:
         """Starts an engine run in a background worker thread."""
         with self._lock:
             if self.active_thread is not None and self.active_thread.is_alive():
-                raise RuntimeError(f"A processing session is already active: {self.active_session_id}")
+                self._stop_requested.set()
+                self.active_thread.join(timeout=1.5)
+                self.active_thread = None
 
+            self._stop_requested.clear()
             session_id = f"sess_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
             self.active_session_id = session_id
-            self._stop_requested.clear()
 
             # Load configuration
             cfg = load_config(overrides=config_overrides)
