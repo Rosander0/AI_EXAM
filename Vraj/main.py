@@ -34,6 +34,7 @@ from sanket.rules import RuleEngine, RuleFiring
 from sanket.scoring import ScoringEngine, Event
 from sanket.seats import SeatMap
 from sanket.source import open_source, Frame
+from sanket.staff import StaffMonitor, StaffEvent
 from sanket.store import SessionStore
 
 
@@ -215,10 +216,14 @@ def main() -> int:
     feature_extractor = FeatureExtractor(cfg)
     rule_engine = RuleEngine(cfg)
     scoring_engine = ScoringEngine(cfg, session_id=session_id)
+    staff_monitor = StaffMonitor(cfg, session_id=session_id)
     calibrators: Dict[str, SeatCalibrator] = {}
 
     from sanket.hands import MediaPipeHandAnalyzer
     hand_analyzer = MediaPipeHandAnalyzer(cfg) if cfg.get("hands", {}).get("enabled", True) else None
+
+    from sanket.motion import MotionAnalyzer
+    motion_analyzer = MotionAnalyzer(cfg) if cfg.get("motion", {}).get("enabled", False) else None
 
     object_detector = None
     if cfg.objects.get("enabled", True):
@@ -232,6 +237,7 @@ def main() -> int:
             object_detector = None
 
     all_emitted_events: List[Event] = []
+    all_staff_events: List[StaffEvent] = []
 
     frames_processed = 0
     start_wall_time = time.perf_counter()
@@ -348,6 +354,17 @@ def main() -> int:
                     for hf in hand_firings:
                         firings_by_seat[hf.seat_id].append(hf)
 
+                # 4.6 MOG2 & Optical Flow Motion Analysis
+                if motion_analyzer:
+                    _, motion_firings = motion_analyzer.analyze_frame(
+                        frame_bgr=frame.image,
+                        seat_map=seat_map,
+                        t=frame.t,
+                        frame_index=frame.index,
+                    )
+                    for mf in motion_firings:
+                        firings_by_seat[mf.seat_id].append(mf)
+
                 # 6. Suspicion Scoring & Decay
                 frame_events = scoring_engine.update(
                     seats=seat_map.seats,
@@ -357,6 +374,18 @@ def main() -> int:
                 if frame_events:
                     all_emitted_events.extend(frame_events)
                     store.insert_events(frame_events)
+
+                # 6.5 Staff Invigilation Supervision Engine
+                staff_events = staff_monitor.update(
+                    staff_persons=staff_persons,
+                    seat_map=seat_map,
+                    student_events=frame_events,
+                    t=frame.t,
+                    frame_index=frame.index,
+                )
+                if staff_events:
+                    all_staff_events.extend(staff_events)
+                    store.insert_staff_events(staff_events)
 
                 # Record periodic timeline samples (every 2.0s)
                 if (frame.t - last_timeline_sample_t) >= 2.0:
@@ -446,6 +475,11 @@ def main() -> int:
     # Save final seat states to DB
     store.save_seat_states(session_id, seat_map.seats)
 
+    # Save staff states and visits to DB
+    store.save_staff_states(session_id, staff_monitor.staff_members)
+    all_visits = [v for st in staff_monitor.staff_members.values() for v in st.completed_visits]
+    store.save_staff_visits(session_id, all_visits)
+
     # Save authorized object registry to DB
     if object_detector:
         for sid, reg in object_detector.authorized_registry.items():
@@ -479,6 +513,8 @@ def main() -> int:
     phone_events = sum(1 for e in all_emitted_events if e.rule in ("object_phone", "hand_phone_grip"))
     zone_str = "Exam Hall (Seated Grid)" if len(seat_map.seats) > 0 else "Reception / Verification Lobby"
 
+    coverage_audit = staff_monitor.generate_coverage_audit(seat_map)
+
     print("\n" + "=" * 80)
     print("--- SANKET SESSION SUMMARY ---")
     print("=" * 80)
@@ -492,9 +528,12 @@ def main() -> int:
     print(f"Seats Calibrated          : {sum(1 for c in calibrators.values() if c.is_calibrated)}")
     print(f"Seats Failed Calib        : {sum(1 for c in calibrators.values() if c.is_failed)}")
     print(f"Unique Persons Tracked    : {len(unique_raw_track_ids)}")
+    print(f"Staff Members Monitored   : {len(staff_monitor.staff_members)}")
+    print(f"Staff Coverage %          : {coverage_audit['coverage_percentage']:.1f}%")
     print(f"Prohibited Device Events  : {phone_events}")
     print(f"Total Events Generated    : {len(all_emitted_events)}")
     print(f"Critical Alerts (>=100)   : {alerts_total}")
+    print(f"Staff Supervision Events  : {len(all_staff_events)}")
     print(f"HTML Report Path          : {html_path}")
     print(f"CSV Report Path           : {csv_path}")
     print("-" * 80)
@@ -502,6 +541,16 @@ def main() -> int:
     for sid, seat in sorted(seat_map.seats.items()):
         status_label = "CRITICAL" if seat.peak_score >= cfg.scoring.get("alert_threshold", 100) else "CLEAR"
         print(f"  [{sid}] Final Score: {seat.score:5.1f} | Peak: {seat.peak_score:5.1f} | Status: {status_label}")
+    
+    if staff_monitor.staff_members:
+        print("-" * 80)
+        print("STAFF INVIGILATION SUPERVISION & ATTENTION DISTRIBUTION:")
+        for st_id, st in sorted(staff_monitor.staff_members.items()):
+            med_dwell = st.get_median_dwell()
+            print(f"  [{st_id}] Score: {st.score:5.1f} | Peak: {st.peak_score:5.1f} | Median Dwell: {med_dwell:.1f}s | Total Visits: {sum(st.visit_count_per_seat.values())} | Status: {st.status.upper()}")
+            for vsid, cnt in sorted(st.visit_count_per_seat.items()):
+                dwell = st.dwell_per_seat.get(vsid, 0.0)
+                print(f"     -> Visited {vsid}: {cnt} times (total dwell: {dwell:.1f}s)")
     print("=" * 80 + "\n")
 
     return 0

@@ -1,0 +1,18 @@
+event_id,session_id,seat_id,track_id,t_start,t_end,frame_start,frame_end,rule,points,score_after,confidence,severity,reason,clip_path,thumb_path
+evt_0001,sess_20260822_192217,S04,4,4.12,5.0,19,40,candidate_talking,40.0,40.0,0.85,warning,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0002,sess_20260822_192217,S05,3,3.0,9.0,-78,72,hidden_hands,15.0,15.0,0.75,warning,Both wrists not visible for 6.0s,,
+evt_0003,sess_20260822_192217,S04,4,8.25,9.25,49,74,head_turn,10.0,41.2,0.85,warning,"Head turned left, 3.4 deviations from own baseline, held 1.0s",,
+evt_0004,sess_20260822_192217,S04,4,9.0,9.88,58,79,candidate_talking,40.0,79.9,0.85,warning,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0005,sess_20260822_192217,S04,4,4.12,9.88,-64,79,repeated_action,25.0,104.9,0.9,critical,"3 separate events in 5s: candidate_talking, head_turn, candidate_talking",/api/clips/evt_0005,/api/thumbs/evt_0005
+evt_0006,sess_20260822_192217,S02,1,9.25,10.25,57,82,head_turn,10.0,10.0,0.68,warning,"Head turned left, 2.7 deviations from own baseline, held 1.0s",,
+evt_0007,sess_20260822_192217,S04,4,13.88,14.75,97,118,candidate_talking,40.0,134.7,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0007,/api/thumbs/evt_0007
+evt_0008,sess_20260822_192217,S04,4,18.75,19.62,136,157,candidate_talking,40.0,164.6,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0008,/api/thumbs/evt_0008
+evt_0009,sess_20260822_192217,S04,4,9.0,19.88,-112,159,repeated_action,25.0,189.1,0.9,critical,"5 separate events in 10s: candidate_talking, candidate_talking, candidate_talking",/api/clips/evt_0009,/api/thumbs/evt_0009
+evt_0010,sess_20260822_192217,S04,4,23.62,24.5,175,196,candidate_talking,40.0,219.5,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0010,/api/thumbs/evt_0010
+evt_0011,sess_20260822_192217,S04,4,24.75,25.75,181,206,head_turn,10.0,226.9,0.95,critical,"Head turned left, 11.0 deviations from own baseline, held 1.0s",/api/clips/evt_0011,/api/thumbs/evt_0011
+evt_0012,sess_20260822_192217,S04,4,28.5,29.38,214,235,candidate_talking,40.0,259.3,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0012,/api/thumbs/evt_0012
+evt_0013,sess_20260822_192217,S04,4,23.62,29.88,83,239,repeated_action,25.0,283.3,0.9,critical,"8 separate events in 6s: candidate_talking, head_turn, candidate_talking",/api/clips/evt_0013,/api/thumbs/evt_0013
+evt_0014,sess_20260822_192217,S04,4,35.0,35.88,266,287,candidate_talking,40.0,310.8,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0014,/api/thumbs/evt_0014
+evt_0015,sess_20260822_192217,S04,4,36.5,37.5,275,300,head_turn,10.0,317.4,0.95,critical,"Head turned left, 4.1 deviations from own baseline, held 1.0s",/api/clips/evt_0015,/api/thumbs/evt_0015
+evt_0016,sess_20260822_192217,S04,4,28.5,39.88,35,319,repeated_action,25.0,337.5,0.9,critical,"8 separate events in 11s: candidate_talking, candidate_talking, head_turn",/api/clips/evt_0016,/api/thumbs/evt_0016
+evt_0017,sess_20260822_192217,S04,4,40.0,40.88,306,327,candidate_talking,40.0,375.4,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0017,/api/thumbs/evt_0017

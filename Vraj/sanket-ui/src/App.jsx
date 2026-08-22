@@ -130,13 +130,18 @@ export default function App() {
           if (seatRes.ok) {
             const seatData = await seatRes.json();
             // Map backend schema to UI schema
-            const mappedStudents = seatData.map(s => ({
-              id: s.seat_id,
-              name: `Candidate ${s.seat_id.split('-').pop() || s.seat_id}`,
-              score: s.score,
-              peak_score: s.peak_score,
-              status: s.status, // "clear", "warning", "critical"
-            }));
+            const mappedStudents = seatData.map(s => {
+              const isCritical = s.status === 'alert' || s.status === 'critical' || s.peak_score >= 100 || s.score >= 100;
+              const isWarning = s.status === 'accumulating' || s.status === 'warning' || s.score >= 40;
+              return {
+                id: s.seat_id,
+                name: `Seat ${s.seat_id.split('-').pop() || s.seat_id}`,
+                score: s.score || 0,
+                peak_score: s.peak_score || 0,
+                status: isCritical ? 'critical' : isWarning ? 'warning' : 'clear',
+                occupied: s.occupied
+              };
+            });
             setStudents(mappedStudents);
           }
 
@@ -319,23 +324,39 @@ export default function App() {
                 <div 
                   key={student.id} 
                   className={`
-                    relative p-3 rounded-lg border flex flex-col items-center justify-center gap-2 transition-colors duration-300
-                    ${(student.status === 'caught' || student.status === 'critical') ? 'bg-rose-950/30 border-rose-500/50' : 
-                      student.status === 'warning' ? 'bg-amber-950/30 border-amber-500/50' : 
-                      'bg-slate-50 dark:bg-slate-50/50 dark:bg-zinc-950/50 border-slate-200 dark:border-zinc-800'}
+                    relative p-3 rounded-lg border flex flex-col items-center justify-center gap-1.5 transition-all duration-300
+                    ${student.status === 'critical' ? 'bg-rose-950/40 border-rose-500/60 shadow-sm shadow-rose-500/20' : 
+                      student.status === 'warning' ? 'bg-amber-950/40 border-amber-500/60' : 
+                      'bg-slate-50 dark:bg-zinc-950/60 border-slate-200 dark:border-zinc-800'}
                   `}
                 >
-                  <span className="text-[10px] font-semibold text-slate-600 dark:text-zinc-400 tracking-wider truncate w-full text-center" title={student.name}>{student.name}</span>
+                  <div className="flex justify-between items-center w-full px-1">
+                    <span className="text-[11px] font-bold text-slate-700 dark:text-zinc-300 tracking-wider truncate" title={student.name}>
+                      {student.name}
+                    </span>
+                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
+                      Peak: {Math.round(student.peak_score)}%
+                    </span>
+                  </div>
                   
-                  <div className="text-2xl font-mono font-bold tracking-tighter" style={{
-                    color: (student.status === 'caught' || student.status === 'critical') ? '#f43f5e' : student.status === 'warning' ? '#f59e0b' : '#14b8a6'
+                  <div className="text-2xl font-mono font-black tracking-tight" style={{
+                    color: student.status === 'critical' ? '#f43f5e' : student.status === 'warning' ? '#f59e0b' : '#14b8a6'
                   }}>
                     {Math.round(student.score)}%
                   </div>
+
+                  <span className={`text-[9px] font-bold uppercase tracking-wider ${
+                    student.status === 'critical' ? 'text-rose-400' : 
+                    student.status === 'warning' ? 'text-amber-400' : 'text-teal-400'
+                  }`}>
+                    {student.status === 'critical' ? 'Suspicious' : student.status === 'warning' ? 'Warning' : 'Calm'}
+                  </span>
                   
-                  {(student.status === 'caught' || student.status === 'critical') && (
+                  {student.status === 'critical' && (
                     <div className="absolute inset-0 bg-rose-500/10 backdrop-blur-[1px] flex items-center justify-center border-2 border-rose-500 rounded-lg z-10">
-                      <span className="bg-rose-500 text-white text-[10px] font-black uppercase px-2 py-1 rounded shadow-lg transform -rotate-12">Disqualified</span>
+                      <span className="bg-rose-500 text-white text-[10px] font-black uppercase px-2 py-1 rounded shadow-lg transform -rotate-12">
+                        Disqualified
+                      </span>
                     </div>
                   )}
                 </div>

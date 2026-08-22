@@ -58,3 +58,51 @@ This document is the authoritative source of truth for all quantitative metrics 
 - **Object Detection Throttle**: Forward pass executed every $N = 5\text{ frames}$.
 - **Phone Geometric Area Filter**: Maximum absolute area $< 25,000\text{ px}^2$; candidate body ratio $< 0.15$.
 - **Chit Geometric Area Filter**: Maximum area ratio $< 0.08$ of candidate bounding box; aspect ratio $0.4 - 2.5$.
+
+---
+
+## 6. Long-Session Benchmark (`CAMERA#.mp4` — 100-Minute Exam Session)
+
+- **Source Dataset File**: `DRISHTI AI DEXIT GLobal Datasets/CAMERA#.mp4`
+- **Evaluation Artifact**: `runs/long_eval_sess_long_eval_20260822_194916.json`
+- **Ground Truth Labels**: `datasets/labels/CAMERA#.json` (11 hand-labelled behavioural events)
+- **Session Duration Evaluated**: 100.0 minutes (6,000.0 s | 128,613 frames | 1.67 hours)
+- **Processing Throughput**: 29.9 FPS (CPU execution)
+- **Seat Mapping**: S1 $\to$ S01 (Center Desk), S3 $\to$ S02 (Top-Right Desk), S4 $\to$ S03 (Bottom-Left Desk)
+
+### Metric Summary:
+| Metric | Measurement | Notes / Status |
+| :--- | :--- | :--- |
+| **Total Labelled Events** | **11** | Full hand-labelled set |
+| **Caught Events (Alert $\ge 100$)** | **5** (45.5%) | All 3 sustained phone usage episodes + 2 looking side events caught |
+| **Caught Weak (Points Scored)** | **2** (18.2%) | Looking back (13:45) and looking side (20:55) |
+| **Near Misses (Tunable)** | **0** (0.0%) | No feature crossed threshold without sufficient duration |
+| **Flat Misses (Sub-threshold)** | **4** (36.4%) | 1 standing/leaving (vacating), 1 turn around, 2 sub-2s glances |
+| **Structural Misses** | **0** (0.0%) | Calibration completed cleanly for all seats |
+| **Seat Rebind Stability** | S01: 15 rebinds, S02: 11 rebinds | Identity anchored to seat; state preserved across all rebinds |
+| **Sustained Phone Compounding** | Peak Score: **27,964.4 pts** | Episodes at 1:16, 1:31, 1:35 compound through score accumulation + decay |
+| **High-Score Drift Freeze** | **100% Effective** | S02 baseline frozen above score 30; phone posture never absorbed into baseline |
+| **Outside-Window Firings** | **781.2 events/hr** | 1,302 events (predominantly S3 continuous talking & reaching towards S1) |
+
+---
+
+## 7. Staff Invigilation Supervision & Attention Distribution Engine
+
+- **Module**: `sanket/staff.py` (`StaffMonitor`)
+- **Isolation Invariant**: Staff scores are strictly separated from candidate scores. Staff alerts evaluate supervision quality and coverage, never candidate misconduct.
+- **Language Invariant**: 100% compliance with professional supervision vocabulary: *"unusual dwell pattern"*, *"attention distribution"*, *"observed proximity"*, *"supervision review"*.
+
+### Staff Evaluation Benchmark:
+| Dataset Clip | Identified Staff | Median Dwell | Desk Visits Recorded | Cumulative Dwell | Max Supervision Score | Status | Rules Fired |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `During the exam...mp4` | `STAFF_06` (Track 6) | $4.2\text{s}$ | 8 visits across 3 desks | $36.0\text{s}$ | $35.0\text{ pts}$ | **NORMAL** | Repeat Visit Observation (4 visits to S02) |
+| `06.Candidate...mp4` | `STAFF_01` (Track 1) | $5.5\text{s}$ | 4 visits across 2 desks | $46.6\text{s}$ | $40.0\text{ pts}$ | **NORMAL** | Dwell Pattern (30s at S01, 5.4x median) |
+| `05.Crowd observed...mp4` | 18 roving persons | $6.2 - 26.9\text{s}$ | Dispersed open lobby | Variable | $\le 35.0\text{ pts}$ | **NORMAL** | Normal open-floor movement |
+
+### Gate Re-verification:
+- **Gate 1 (Hard Negative Empty-Hand)**: **PASS** (0 false student alerts).
+- **Gate 2 (CBT Flood Control)**: **PASS** (0 false student alerting seats).
+- **Gate 3 (Negative Control Lobby)**: **PASS** (0 alerting candidate seats).
+- **Gate 4 (Strongest Alert)**: **PASS** (Immediate phone detection on clips 01, 02, 03).
+
+

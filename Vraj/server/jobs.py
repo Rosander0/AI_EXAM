@@ -31,6 +31,7 @@ from sanket.rules import RuleEngine, RuleFiring
 from sanket.scoring import ScoringEngine, Event
 from sanket.seats import SeatMap
 from sanket.source import open_source
+from sanket.staff import StaffMonitor, StaffEvent
 from sanket.store import SessionStore
 from server.streamer import streamer
 
@@ -53,13 +54,11 @@ class JobRunner:
         """Starts an engine run in a background worker thread."""
         with self._lock:
             if self.active_thread is not None and self.active_thread.is_alive():
-                self._stop_requested.set()
-                self.active_thread.join(timeout=1.5)
-                self.active_thread = None
+                raise RuntimeError(f"A processing session is already active: {self.active_session_id}")
 
-            self._stop_requested.clear()
             session_id = f"sess_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
             self.active_session_id = session_id
+            self._stop_requested.clear()
 
             # Load configuration
             cfg = load_config(overrides=config_overrides)
@@ -111,22 +110,27 @@ class JobRunner:
             feature_extractor = FeatureExtractor(cfg)
             rule_engine = RuleEngine(cfg)
             scoring_engine = ScoringEngine(cfg, session_id=session_id)
+            staff_monitor = StaffMonitor(cfg, session_id=session_id)
             calibrators: Dict[str, SeatCalibrator] = {}
 
             from sanket.hands import MediaPipeHandAnalyzer
             hand_analyzer = MediaPipeHandAnalyzer(cfg) if cfg.get("hands", {}).get("enabled", True) else None
 
+            from sanket.motion import MotionAnalyzer
+            motion_analyzer = MotionAnalyzer(cfg) if cfg.get("motion", {}).get("enabled", False) else None
+
             object_detector = None
             if cfg.get("objects", {}).get("enabled", True):
                 try:
-                    obj_weights = cfg.objects.get("weights", "models/yolo11m.pt")
+                    obj_weights = cfg.get("objects", {}).get("weights", "models/yolo11m.pt")
                     if not Path(obj_weights).is_file() and not Path(obj_weights).exists():
-                        cfg.objects["weights"] = "yolo11n.pt"
+                        cfg.setdefault("objects", {})["weights"] = "yolo11n.pt"
                     object_detector = ObjectDetector(cfg)
                 except Exception:
                     object_detector = None
 
             all_emitted_events: List[Event] = []
+            all_staff_events: List[StaffEvent] = []
             frames_processed = 0
             start_wall_time = time.perf_counter()
             last_fps_calc_time = start_wall_time
@@ -233,6 +237,17 @@ class JobRunner:
                         for hf in hand_firings:
                             firings_by_seat[hf.seat_id].append(hf)
 
+                    # E.6 MOG2 & Optical Flow Motion Analysis
+                    if motion_analyzer:
+                        _, motion_firings = motion_analyzer.analyze_frame(
+                            frame_bgr=frame.image,
+                            seat_map=seat_map,
+                            t=frame.t,
+                            frame_index=frame.index,
+                        )
+                        for mf in motion_firings:
+                            firings_by_seat[mf.seat_id].append(mf)
+
                     # F. Scoring & Decay
                     frame_events = scoring_engine.update(
                         seats=seat_map.seats,
@@ -242,6 +257,18 @@ class JobRunner:
                     if frame_events:
                         all_emitted_events.extend(frame_events)
                         self.store.insert_events(frame_events)
+
+                    # F.5 Staff Invigilation Supervision Engine
+                    staff_events = staff_monitor.update(
+                        staff_persons=staff_persons,
+                        seat_map=seat_map,
+                        student_events=frame_events,
+                        t=frame.t,
+                        frame_index=frame.index,
+                    )
+                    if staff_events:
+                        all_staff_events.extend(staff_events)
+                        self.store.insert_staff_events(staff_events)
 
                     # Progress & Periodic timeline samples
                     if (frame.t - last_timeline_sample_t) >= 2.0:
@@ -272,6 +299,7 @@ class JobRunner:
                             "events_total": len(all_emitted_events),
                             "alerts_total": alerts_count,
                         })
+                        self.store.save_seat_states(session_id, seat_map.seats)
                         last_progress_update_time = now
 
                     # G. Render Scene & Stream
@@ -332,6 +360,9 @@ class JobRunner:
             source_dur = (frames_processed / src.fps) if src.fps > 0 else 0.0
 
             self.store.save_seat_states(session_id, seat_map.seats)
+            self.store.save_staff_states(session_id, staff_monitor.staff_members)
+            all_visits = [v for st in staff_monitor.staff_members.values() for v in st.completed_visits]
+            self.store.save_staff_visits(session_id, all_visits)
             alerts_total = sum(1 for e in all_emitted_events if e.severity == "critical")
             self.store.update_session(session_id, {
                 "state": "done",
