@@ -152,9 +152,8 @@ class ObjectDetector:
             b_conf = float(confs[i])
             box = (float(xyxy[i, 0]), float(xyxy[i, 1]), float(xyxy[i, 2]), float(xyxy[i, 3]))
 
-            # Check if class is in watch classes
-            if cls_name not in self.watch_classes and cls_name not in ("cell phone", "book", "remote"):
-                continue
+            # Normalize class name
+            cls_lower = cls_name.lower().replace("_", " ").strip()
 
             # 1. Candidate Association (Associates to closest candidate wrist or body)
             assoc_sid, assoc_wrist, person_obj = self._associate_object(box, candidate_pool)
@@ -163,24 +162,32 @@ class ObjectDetector:
             if assoc_sid is None or person_obj is None:
                 continue
 
-            # 2. Geometry Filters
-            is_phone = False
-            is_chit = False
+            # 2. Flexible Multi-Class Detection (Supports Standard COCO & Custom Roboflow Models)
+            PHONE_ALIASES = {"cell phone", "phone", "mobile", "smartphone", "mobile phone", "remote"}
+            CHIT_ALIASES = {"book", "chit", "paper", "cheat sheet", "notes", "paper chit", "document"}
+            WATCH_ALIASES = {"smartwatch", "smart watch", "watch", "apple watch"}
+            EARBUD_ALIASES = {"earphone", "earphones", "earbud", "earbuds", "airpod", "airpods", "headphone", "headphones"}
 
-            if cls_name in ("cell phone", "remote"):
-                # Geometric filtering for phones: reject huge wall fixtures/windows or non-phone proportions
+            is_phone = any(alias in cls_lower for alias in PHONE_ALIASES)
+            is_chit = any(alias in cls_lower for alias in CHIT_ALIASES)
+            is_smartwatch = any(alias in cls_lower for alias in WATCH_ALIASES)
+            is_earbud = any(alias in cls_lower for alias in EARBUD_ALIASES)
+
+            if is_phone:
                 if not self._filter_phone_geometry(box, person_obj):
                     continue
-                is_phone = True
                 label = "phone"
-            elif cls_name == "book":
+            elif is_chit:
                 self.total_chits_checked += 1
                 if self._filter_chit_geometry(box, person_obj):
-                    is_chit = True
                     label = "paper_chit"
                 else:
                     self.total_chits_filtered += 1
                     continue
+            elif is_smartwatch:
+                label = "smartwatch"
+            elif is_earbud:
+                label = "earbuds"
             else:
                 label = cls_name
 
@@ -234,6 +241,38 @@ class ObjectDetector:
                             rule="object_chit",
                             points=60.0,
                             confidence=b_conf * 0.8,
+                            reason=reason,
+                            t_start=t,
+                            t_end=t,
+                            seat_id=assoc_sid,
+                            track_id=person_obj.track_id if person_obj else None,
+                            frame_start=frame_index,
+                            frame_end=frame_index,
+                        )
+                    )
+                elif is_smartwatch:
+                    reason = f"Prohibited smartwatch detected at {assoc_sid} ({wrist_desc}, conf {b_conf:.2f})"
+                    firings.append(
+                        RuleFiring(
+                            rule="object_smartwatch",
+                            points=80.0,
+                            confidence=b_conf * 0.9,
+                            reason=reason,
+                            t_start=t,
+                            t_end=t,
+                            seat_id=assoc_sid,
+                            track_id=person_obj.track_id if person_obj else None,
+                            frame_start=frame_index,
+                            frame_end=frame_index,
+                        )
+                    )
+                elif is_earbud:
+                    reason = f"Prohibited wireless earbud/earphone detected at {assoc_sid} (conf {b_conf:.2f})"
+                    firings.append(
+                        RuleFiring(
+                            rule="object_earbuds",
+                            points=80.0,
+                            confidence=b_conf * 0.9,
                             reason=reason,
                             t_start=t,
                             t_end=t,

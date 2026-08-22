@@ -19,7 +19,34 @@ identity:
   seat_release_seconds: 20
   staff_grace_seconds: 4.0
   max_seat_bindings: 2
-  staff_exclusion_enabled: false
+  staff_exclusion_enabled: true
+staff_monitoring:
+  enabled: true
+  proximity_distance_ratio: 1.8
+  alert_threshold: 100.0
+  decay_rate: 0.5
+  weights:
+    staff_dwell: 40.0
+    staff_repeat_visit: 35.0
+    staff_proximity_during_student_event: 50.0
+  rules:
+    staff_dwell:
+      enabled: true
+      dwell_factor_threshold: 3.0
+      min_duration_seconds: 30.0
+      cooldown_seconds: 60.0
+    staff_repeat_visit:
+      enabled: true
+      count: 4
+      window_seconds: 720.0
+      cooldown_seconds: 120.0
+    staff_proximity_during_student_event:
+      enabled: true
+      cooldown_seconds: 30.0
+    staff_coverage:
+      enabled: true
+      min_session_seconds_for_audit: 180.0
+
 calibration:
   seconds: 3
   min_samples: 10
@@ -64,13 +91,13 @@ rules:
     cooldown_seconds: 4.0
   lap_gazing:
     enabled: true
-    displacement_threshold: 0.36405338713021307
-    min_duration_seconds: 3.2544232911932127
+    displacement_threshold: 0.35
+    min_duration_seconds: 3.0
     cooldown_seconds: 5.0
 objects:
   enabled: true
   weights: models/yolo11m.pt
-  conf: 0.38154238206466895
+  conf: 0.35
   detect_every_n_frames: 2
   watch_classes:
   - cell phone
@@ -91,8 +118,19 @@ hands:
   min_confidence: 0.5
   min_duration_seconds: 1.0
   cooldown_seconds: 5.0
+
+# Motion Analysis Plugin (MOG2 Background Subtraction & Dense Optical Flow)
+motion:
+  enabled: true  # Modular plugin: toggle true/false at any time
+  mode: mog2      # mog2 | optical_flow | both
+  energy_threshold: 0.30
+  velocity_spike_threshold: 45.0
+  mog2_var_threshold: 16.0
+  mog2_detect_shadows: false
+  downsample_width: 640
+
 scoring:
-  decay_rate: 2.0786269034519016
+  decay_rate: 1.5
   alert_threshold: 100
   realert_seconds: 60
   late_exam_multiplier: 1.0
@@ -106,7 +144,10 @@ scoring:
     lap_gazing: 80
     object_phone: 100
     object_chit: 60
+    object_smartwatch: 80
+    object_earbuds: 80
     object_unregistered: 40
+    motion_spurt: 20
     hand_phone_grip: 50
     hand_chit_pinch: 40
 output:

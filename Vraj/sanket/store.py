@@ -114,7 +114,54 @@ class SessionStore:
                 FOREIGN KEY (session_id) REFERENCES sessions (session_id)
             );
 
+            CREATE TABLE IF NOT EXISTS staff_states (
+                session_id TEXT NOT NULL,
+                staff_id TEXT NOT NULL,
+                track_id INTEGER NOT NULL,
+                score REAL DEFAULT 0.0,
+                peak_score REAL DEFAULT 0.0,
+                event_count INTEGER DEFAULT 0,
+                status TEXT DEFAULT 'normal',
+                median_dwell_s REAL DEFAULT 0.0,
+                total_visits INTEGER DEFAULT 0,
+                total_dwell_s REAL DEFAULT 0.0,
+                last_reason TEXT,
+                PRIMARY KEY (session_id, staff_id),
+                FOREIGN KEY (session_id) REFERENCES sessions (session_id)
+            );
+
+            CREATE TABLE IF NOT EXISTS staff_events (
+                event_id TEXT NOT NULL,
+                session_id TEXT NOT NULL,
+                staff_id TEXT NOT NULL,
+                seat_id TEXT,
+                track_id INTEGER,
+                t_start REAL NOT NULL,
+                t_end REAL NOT NULL,
+                frame_start INTEGER NOT NULL,
+                frame_end INTEGER NOT NULL,
+                rule TEXT NOT NULL,
+                points REAL NOT NULL,
+                score_after REAL NOT NULL,
+                confidence REAL NOT NULL,
+                severity TEXT NOT NULL,
+                reason TEXT NOT NULL,
+                PRIMARY KEY (session_id, event_id),
+                FOREIGN KEY (session_id) REFERENCES sessions (session_id)
+            );
+
+            CREATE TABLE IF NOT EXISTS staff_visits (
+                session_id TEXT NOT NULL,
+                staff_id TEXT NOT NULL,
+                seat_id TEXT NOT NULL,
+                t_start REAL NOT NULL,
+                t_end REAL NOT NULL,
+                duration REAL NOT NULL,
+                FOREIGN KEY (session_id) REFERENCES sessions (session_id)
+            );
+
             CREATE INDEX IF NOT EXISTS idx_events_session_id ON events (session_id, event_id);
+            CREATE INDEX IF NOT EXISTS idx_staff_events_sess ON staff_events (session_id, event_id);
             CREATE INDEX IF NOT EXISTS idx_seat_timeline_sess ON seat_timeline (session_id, seat_id, t);
             """)
 
@@ -243,3 +290,68 @@ class SessionStore:
         with self._get_connection() as conn:
             rows = conn.execute("SELECT * FROM stream_gaps WHERE session_id = ?", (session_id,)).fetchall()
             return [dict(r) for r in rows]
+
+    def save_staff_states(self, session_id: str, staff_members: Dict[str, Any]) -> None:
+        """Saves current state for all monitored staff members."""
+        with self._get_connection() as conn:
+            for staff_id, st in staff_members.items():
+                conn.execute("""
+                INSERT OR REPLACE INTO staff_states (
+                    session_id, staff_id, track_id, score, peak_score, event_count,
+                    status, median_dwell_s, total_visits, total_dwell_s, last_reason
+                ) VALUES (
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                )
+                """, (
+                    session_id, staff_id, st.track_id, round(st.score, 1), round(st.peak_score, 1),
+                    st.event_count, getattr(st, "status", "normal"),
+                    round(st.get_median_dwell(), 1), sum(st.visit_count_per_seat.values()),
+                    round(sum(st.dwell_per_seat.values()), 1), st.last_reason
+                ))
+
+    def insert_staff_events(self, events: List[Any]) -> None:
+        """Batch inserts staff supervision events."""
+        if not events:
+            return
+        with self._get_connection() as conn:
+            conn.executemany("""
+            INSERT OR REPLACE INTO staff_events (
+                event_id, session_id, staff_id, seat_id, track_id, t_start, t_end,
+                frame_start, frame_end, rule, points, score_after, confidence,
+                severity, reason
+            ) VALUES (
+                :event_id, :session_id, :staff_id, :seat_id, :track_id, :t_start, :t_end,
+                :frame_start, :frame_end, :rule, :points, :score_after, :confidence,
+                :severity, :reason
+            )
+            """, [e.to_dict() if hasattr(e, "to_dict") else e for e in events])
+
+    def save_staff_visits(self, session_id: str, visits: List[Any]) -> None:
+        """Saves discrete staff visit intervals."""
+        if not visits:
+            return
+        with self._get_connection() as conn:
+            for v in visits:
+                conn.execute("""
+                INSERT INTO staff_visits (
+                    session_id, staff_id, seat_id, t_start, t_end, duration
+                ) VALUES (?, ?, ?, ?, ?, ?)
+                """, (
+                    session_id, v.staff_id, v.seat_id, v.t_start, v.t_end, v.duration
+                ))
+
+    def get_staff_states(self, session_id: str) -> List[Dict[str, Any]]:
+        with self._get_connection() as conn:
+            rows = conn.execute("SELECT * FROM staff_states WHERE session_id = ? ORDER BY score DESC", (session_id,)).fetchall()
+            return [dict(r) for r in rows]
+
+    def get_staff_events(self, session_id: str) -> List[Dict[str, Any]]:
+        with self._get_connection() as conn:
+            rows = conn.execute("SELECT * FROM staff_events WHERE session_id = ? ORDER BY event_id ASC", (session_id,)).fetchall()
+            return [dict(r) for r in rows]
+
+    def get_staff_visits(self, session_id: str) -> List[Dict[str, Any]]:
+        with self._get_connection() as conn:
+            rows = conn.execute("SELECT * FROM staff_visits WHERE session_id = ? ORDER BY t_start ASC", (session_id,)).fetchall()
+            return [dict(r) for r in rows]
+

@@ -68,3 +68,35 @@ class SessionSchema(BaseModel):
     started_at: str
     ended_at: Optional[str] = None
     error_message: Optional[str] = None
+
+
+class StaffStateSchema(BaseModel):
+    staff_id: str
+    track_id: int
+    score: float
+    peak_score: float
+    event_count: int
+    status: str
+    median_dwell_s: float
+    total_visits: int
+    total_dwell_s: float
+    last_reason: Optional[str] = None
+
+
+class StaffEventSchema(BaseModel):
+    event_id: str
+    session_id: str
+    staff_id: str
+    seat_id: Optional[str] = None
+    track_id: Optional[int] = None
+    t_start: float
+    t_end: float
+    frame_start: int
+    frame_end: int
+    rule: str
+    points: float
+    score_after: float
+    confidence: float
+    severity: str
+    reason: str
+

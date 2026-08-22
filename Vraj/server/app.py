@@ -31,6 +31,8 @@ from server.schemas import (
     SeatStateSchema,
     SessionCreateRequest,
     SessionSchema,
+    StaffStateSchema,
+    StaffEventSchema,
 )
 from server.streamer import streamer
 
@@ -78,26 +80,10 @@ def list_sessions() -> List[SessionSchema]:
 def create_session(payload: SessionCreateRequest) -> SessionSchema:
     """Starts a new invigilation session in a background thread."""
     if runner.is_busy():
-        # Gracefully stop the currently active session before starting a new one
-        if hasattr(runner, "stop_session"):
-            runner.stop_session()
-        elif hasattr(runner, "stop"):
-            runner.stop()
-
-    # Validate source
-    source_path = payload.source
-    if not source_path.startswith(("rtsp://", "http://", "https://")) and not source_path.isdigit():
-        if not Path(source_path).is_file():
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Video file not found: {source_path}",
-            )
-
-    try:
-        session_rec = runner.start_session(source_path, config_overrides=payload.config_overrides)
-        return SessionSchema(**session_rec)
-    except Exception as e:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Another session is currently active: {runner.active_session_id}",
+        )
 
     # Validate source
     source_path = payload.source
@@ -155,6 +141,21 @@ def get_session_events(
     """Incremental polling endpoint for newly raised events."""
     events = store.get_events(session_id, since_id=since)
     return [EventSchema(**e) for e in events]
+
+
+@app.get("/api/sessions/{session_id}/staff", response_model=List[StaffStateSchema])
+def get_session_staff(session_id: str) -> List[StaffStateSchema]:
+    """Retrieves staff member profiles and supervision metrics."""
+    staff = store.get_staff_states(session_id)
+    return [StaffStateSchema(**s) for s in staff]
+
+
+@app.get("/api/sessions/{session_id}/staff/events", response_model=List[StaffEventSchema])
+def get_session_staff_events(session_id: str) -> List[StaffEventSchema]:
+    """Retrieves staff supervision observation events."""
+    events = store.get_staff_events(session_id)
+    return [StaffEventSchema(**e) for e in events]
+
 
 
 @app.get("/api/sessions/{session_id}/timeline")

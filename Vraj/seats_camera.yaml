@@ -1,0 +1,25 @@
+seats:
+- seat_id: S01
+  grid_row: 1
+  grid_col: 1
+  anchor_box:
+  - 260.0
+  - 140.0
+  - 470.0
+  - 420.0
+- seat_id: S02
+  grid_row: 1
+  grid_col: 2
+  anchor_box:
+  - 420.0
+  - 60.0
+  - 600.0
+  - 310.0
+- seat_id: S03
+  grid_row: 2
+  grid_col: 1
+  anchor_box:
+  - 10.0
+  - 200.0
+  - 250.0
+  - 480.0
