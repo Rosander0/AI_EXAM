@@ -1,0 +1,8 @@
+event_id,session_id,seat_id,track_id,t_start,t_end,frame_start,frame_end,rule,points,score_after,confidence,severity,reason,clip_path,thumb_path
+evt_0001,sess_20260822_204701,S01,1,11.25,12.25,122,147,head_turn,10.0,10.0,0.9,warning,"Head turned left, 3.6 deviations from own baseline, held 1.0s",,
+evt_0002,sess_20260822_204701,S01,1,30.42,31.42,352,377,head_turn,10.0,10.0,0.65,warning,"Head turned left, 2.6 deviations from own baseline, held 1.0s",,
+evt_0003,sess_20260822_204701,S01,1,63.08,63.08,757,757,object_phone,100.0,100.0,0.47,critical,"Prohibited mobile phone detected at S01 (near left wrist, conf 0.47)",/api/clips/evt_0003,/api/thumbs/evt_0003
+evt_0004,sess_20260822_204701,S01,1,148.08,149.08,1764,1789,head_turn,10.0,10.0,0.82,warning,"Head turned left, 3.3 deviations from own baseline, held 1.0s",,
+evt_0005,sess_20260822_204701,S01,1,154.08,155.08,1836,1861,head_turn,10.0,10.0,0.95,warning,"Head turned left, 4.8 deviations from own baseline, held 1.0s",,
+evt_0006,sess_20260822_204701,S01,1,208.75,208.75,2505,2505,object_phone,100.0,100.0,0.41,critical,"Prohibited mobile phone detected at S01 (near left wrist, conf 0.41)",/api/clips/evt_0006,/api/thumbs/evt_0006
+evt_0007,sess_20260822_204701,S01,1,252.08,253.08,3012,3037,head_turn,10.0,17.8,0.82,warning,"Head turned left, 3.3 deviations from own baseline, held 1.0s",,

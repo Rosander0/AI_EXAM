@@ -1,0 +1,2 @@
+event_id,session_id,seat_id,track_id,t_start,t_end,frame_start,frame_end,rule,points,score_after,confidence,severity,reason,clip_path,thumb_path
+evt_0001,sess_20260822_211902,S01,1,11.25,12.25,122,147,head_turn,10.0,10.0,0.9,warning,"Head turned left, 3.6 deviations from own baseline, held 1.0s",,
