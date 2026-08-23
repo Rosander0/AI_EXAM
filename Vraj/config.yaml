@@ -154,6 +154,10 @@ output:
   run_dir: runs
   save_video: true
   save_report: true
+clips:
+  cooldown_seconds: 120.0
+  pre_event_seconds: 2.0
+  post_event_seconds: 3.0
 server:
   host: 127.0.0.1
   port: 8000

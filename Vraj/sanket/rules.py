@@ -416,7 +416,7 @@ class CandidateTalkingRule(BaseRule):
 class LapGazingRule(BaseRule):
     """
     Fires when the candidate's nose is significantly displaced from its resting position
-    (e.g., dipping down) combined with hidden hands, suggesting lap-based cheating.
+    (e.g., dipping down) combined with hidden hands, suggesting lap-based unauthorized activity.
     """
     name = "lap_gazing"
 

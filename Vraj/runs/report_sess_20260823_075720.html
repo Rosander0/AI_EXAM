@@ -1,0 +1,2620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANKET Invigilation Session Report — sess_20260823_075720</title>
+    <style>
+        :root {
+            --ink: #0F1B2D;
+            --panel: #16263C;
+            --line: #24384F;
+            --text: #E8EDF3;
+            --muted: #7C8FA6;
+            --calm: #3E7A5E;
+            --accum: #C8873A;
+            --alert: #C4453D;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--ink);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            padding: 32px 24px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .header-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #FFFFFF; }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .meta-item { font-size: 13px; }
+        .meta-label { color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+        .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+        .font-bold { font-weight: 700; }
+        .text-accent { color: #F0B429; }
+        .text-muted { color: var(--muted); font-size: 13px; }
+        .text-sm { font-size: 12px; color: var(--muted); }
+        
+        .section-card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .section-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        th {
+            background: #111E2E;
+            color: var(--muted);
+            text-align: left;
+            padding: 10px 12px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--line);
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--line);
+        }
+        .event-cell {
+            background: #132033;
+            padding: 8px 16px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-calm { background: rgba(62, 122, 94, 0.25); color: #4EBB8B; border: 1px solid var(--calm); }
+        .badge-accum { background: rgba(200, 135, 58, 0.25); color: #F7B955; border: 1px solid var(--accum); }
+        .badge-alert { background: rgba(196, 69, 61, 0.25); color: #FF6B6B; border: 1px solid var(--alert); }
+        
+        .event-details summary {
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 12px;
+            padding: 4px 0;
+            user-select: none;
+        }
+        .event-details ul {
+            list-style: none;
+            padding: 8px 0 4px 0;
+        }
+        .event-details li {
+            font-size: 12px;
+            margin-bottom: 6px;
+            padding-left: 8px;
+            border-left: 2px solid var(--line);
+        }
+        .ev-critical { border-left-color: var(--alert) !important; }
+        .ev-warning { border-left-color: var(--accum) !important; }
+        .rule-tag { color: #79B8FF; font-weight: 600; }
+        .clip-link { color: #58A6FF; text-decoration: none; margin-left: 8px; font-weight: 600; }
+        .clip-link:hover { text-decoration: underline; }
+        
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--muted);
+            font-size: 12px;
+            border-top: 1px solid var(--line);
+            margin-top: 32px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-title">SANKET — Examination Behaviour Analytics Report</div>
+            <p class="text-muted">Automated behavioral analysis and observation event log for human invigilator review.</p>
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="meta-label">Session ID</div>
+                    <div class="mono">sess_20260823_075720</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Source Feed</div>
+                    <div class="mono">datasets/uploads/04.CCTV Candidate Talking.mp4</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Coverage Duration</div>
+                    <div class="mono">143.3s (2.39 min)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Total Events / Alerts</div>
+                    <div class="mono">392 events (47 critical)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Config Hash</div>
+                    <div class="mono">8ae6c5</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">Seats of Interest (Ranked by Sustained Alert Duration)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Seat</th>
+                        <th>Status</th>
+                        <th>Sustained Alert</th>
+                        <th>Current Score</th>
+                        <th>Peak Score</th>
+                        <th>Events</th>
+                        <th>Distinct Rules</th>
+                        <th>Calibration</th>
+                        <th>Approved Items</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td class="mono font-bold">S04</td>
+            <td><span class="badge badge-alert">ALERT</span></td>
+            <td class="mono font-bold text-accent">133.3s</td>
+            <td class="mono">11167.8</td>
+            <td class="mono">11167.9</td>
+            <td class="mono">306</td>
+            <td class="mono">6</td>
+            <td><span class="text-sm">Calibrated</span></td>
+            <td><span class="text-sm">None</span></td>
+        </tr>
+        <tr>
+            <td colspan="9" class="event-cell"><details class='event-details'><summary>306 Recorded Events</summary><ul>
+                <li class="ev-warning">
+                    <strong>[4.1s - 5.0s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[8.8s - 8.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:08, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[9.0s - 9.9s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) <a class='clip-link' href='/api/clips/evt_0005' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[10.0s - 10.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:10, not present during calibration <a class='clip-link' href='/api/clips/evt_0006' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[10.2s - 10.2s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:10, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[10.5s - 10.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:10, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[10.8s - 10.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:10, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[13.0s - 13.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:13, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[13.2s - 13.2s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:13, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[13.5s - 13.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:13, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[13.8s - 13.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:13, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[14.0s - 14.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[14.2s - 14.2s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[14.5s - 14.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[13.9s - 14.8s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[4.1s - 14.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    3 separate events in 10s: candidate_talking, candidate_talking, candidate_talking <a class='clip-link' href='/api/clips/evt_0028' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[14.8s - 14.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[15.0s - 15.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:15, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[15.2s - 15.2s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:15, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[15.5s - 15.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:15, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[15.8s - 15.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:15, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[18.0s - 18.0s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 30.2%, Velocity: 0.0px/s) <a class='clip-link' href='/api/clips/evt_0034' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[18.1s - 18.1s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 31.1%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[18.2s - 18.2s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 31.8%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[18.4s - 18.4s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 32.1%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[18.5s - 18.5s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 32.0%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[18.6s - 18.6s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 33.9%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[18.8s - 18.8s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 37.2%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[18.9s - 18.9s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 39.4%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[19.0s - 19.0s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 41.6%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[19.1s - 19.1s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 40.0%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[19.2s - 19.2s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 39.4%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[19.4s - 19.4s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 39.0%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[19.5s - 19.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:19, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[19.5s - 19.5s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 36.7%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[18.8s - 19.6s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[19.6s - 19.6s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 33.4%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[19.8s - 19.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:19, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[19.8s - 19.8s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 32.3%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[19.9s - 19.9s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 33.3%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.0s - 20.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.0s - 20.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.0s - 20.0s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 32.3%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.1s - 20.1s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 32.7%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.2s - 20.2s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.2s - 20.2s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.2s - 20.2s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 32.5%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.4s - 20.4s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 31.9%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.5s - 20.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.5s - 20.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.5s - 20.5s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 31.7%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.6s - 20.6s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 31.9%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.8s - 20.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.8s - 20.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.8s - 20.8s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 31.7%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.9s - 20.9s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 31.2%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[21.0s - 21.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[21.0s - 21.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[21.0s - 21.0s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 30.4%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[21.3s - 21.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[21.5s - 21.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[21.5s - 21.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[21.8s - 21.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[22.0s - 22.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:22, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[22.3s - 22.3s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 30.6%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[22.4s - 22.4s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 33.5%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[22.5s - 22.5s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 36.6%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[22.6s - 22.6s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 38.5%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[22.8s - 22.8s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 39.9%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[22.9s - 22.9s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 42.4%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[23.0s - 23.0s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 42.7%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[23.1s - 23.1s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 44.0%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[23.3s - 23.3s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 42.2%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[23.4s - 23.4s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 41.3%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[23.5s - 23.5s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 41.6%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[23.6s - 23.6s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 43.1%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[23.8s - 23.8s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 44.1%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[23.9s - 23.9s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 44.3%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[24.0s - 24.0s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 44.9%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[24.1s - 24.1s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 45.5%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[24.3s - 24.3s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 44.9%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[24.4s - 24.4s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 43.2%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[23.6s - 24.5s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[24.5s - 24.5s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 41.0%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[24.6s - 24.6s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 38.9%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[13.9s - 24.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    5 separate events in 10s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[24.8s - 24.8s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 37.4%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[24.9s - 24.9s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 35.6%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[25.0s - 25.0s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 34.1%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[25.1s - 25.1s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 32.9%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[25.3s - 25.3s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 32.2%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[25.4s - 25.4s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 31.2%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[25.5s - 25.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:25, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[25.5s - 25.5s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 31.1%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[25.6s - 25.6s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 30.1%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[25.1s - 26.1s]</strong>
+                    <span class="rule-tag">head_turn (+10 pts)</span>:
+                    Head turned left, 5.9 deviations from own baseline, held 1.0s <a class='clip-link' href='/api/clips/evt_0116' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[26.3s - 26.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:26, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[26.5s - 26.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:26, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[26.8s - 26.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:26, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[26.8s - 26.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:26, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[27.0s - 27.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:27, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[27.3s - 27.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:27, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[27.5s - 27.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:27, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[27.5s - 27.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:27, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[27.5s - 27.5s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 30.7%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[27.6s - 27.6s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 30.7%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[27.8s - 27.8s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 30.5%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[27.9s - 27.9s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 30.2%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[28.0s - 28.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:28, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[28.0s - 28.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:28, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[28.0s - 28.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S04 at 00:28, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[28.0s - 28.0s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 30.2%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[28.1s - 28.1s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 32.4%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[28.3s - 28.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:28, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[28.3s - 28.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:28, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[28.3s - 28.3s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 33.8%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[28.4s - 28.4s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 33.9%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[28.5s - 28.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:28, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[28.5s - 28.5s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 31.8%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[28.5s - 29.4s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[29.8s - 29.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:29, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[32.0s - 32.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:32, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[32.3s - 32.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:32, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[32.5s - 32.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:32, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[32.8s - 32.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:32, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[33.0s - 33.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:33, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[33.3s - 33.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:33, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[33.5s - 33.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:33, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[33.8s - 33.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:33, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[23.6s - 34.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    7 separate events in 11s: candidate_talking, head_turn, candidate_talking 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[35.0s - 35.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:35, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[35.3s - 35.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:35, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[35.5s - 35.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:35, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[35.8s - 35.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:35, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[35.0s - 35.9s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[40.0s - 40.9s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[42.5s - 42.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:42, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[43.3s - 43.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:43, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[43.5s - 43.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:43, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[43.8s - 43.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:43, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[44.0s - 44.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:44, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[44.3s - 44.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:44, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[44.5s - 44.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:44, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[28.5s - 44.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 16s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[44.8s - 44.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:44, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[48.0s - 48.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:48, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[48.3s - 48.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:48, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[48.5s - 48.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:48, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[48.8s - 48.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:48, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[48.0s - 48.9s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[49.8s - 49.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 00:49, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[53.8s - 54.6s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[40.0s - 54.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 14s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[59.0s - 59.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:59, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[59.3s - 59.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:59, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[58.6s - 59.5s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[59.5s - 59.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:59, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[59.8s - 59.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:59, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[62.0s - 62.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 01:02, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[62.3s - 62.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 01:02, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[62.5s - 62.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 01:02, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[62.8s - 62.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 01:02, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[63.5s - 64.4s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[53.8s - 64.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 11s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[68.4s - 69.3s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[73.3s - 74.1s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[63.5s - 74.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 11s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[78.1s - 79.0s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[83.0s - 83.9s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[73.3s - 84.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 11s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[87.9s - 88.8s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[90.5s - 90.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:30, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[90.8s - 90.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:30, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[91.0s - 91.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:31, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[91.3s - 91.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:31, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[91.5s - 91.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:31, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[91.5s - 91.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:31, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[91.8s - 91.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:31, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[91.8s - 91.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:31, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[92.8s - 93.7s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[94.0s - 94.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:34, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[94.3s - 94.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:34, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[94.5s - 94.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:34, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[83.0s - 94.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 11s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[94.8s - 94.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:34, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[95.0s - 95.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:35, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[95.8s - 95.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:35, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[97.8s - 97.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:37, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[98.0s - 98.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:38, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[98.0s - 98.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:38, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[98.3s - 98.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:38, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[98.3s - 98.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:38, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[97.7s - 98.5s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S03 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[101.0s - 101.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:41, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[101.3s - 101.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:41, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[101.5s - 101.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:41, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[101.8s - 101.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:41, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[102.5s - 103.4s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[92.8s - 104.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 12s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[106.3s - 106.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:46, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[106.5s - 106.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:46, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[106.8s - 106.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:46, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[107.4s - 108.3s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S03 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[110.8s - 110.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (backpack) appeared at S04 at 01:50, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[112.3s - 113.2s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S03 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[102.5s - 114.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 12s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[116.0s - 116.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:56, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[116.3s - 116.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (cup) appeared at S04 at 01:56, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[120.5s - 121.4s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[122.0s - 122.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (backpack) appeared at S04 at 02:02, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[122.0s - 122.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:02, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[122.3s - 122.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (backpack) appeared at S04 at 02:02, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[122.5s - 122.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (backpack) appeared at S04 at 02:02, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[122.8s - 122.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (backpack) appeared at S04 at 02:02, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[122.8s - 122.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:02, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[123.0s - 123.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:03, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[123.3s - 123.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:03, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[123.5s - 123.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:03, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[123.8s - 123.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:03, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[124.3s - 124.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:04, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[124.5s - 124.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:04, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[123.7s - 124.7s]</strong>
+                    <span class="rule-tag">head_turn (+10 pts)</span>:
+                    Head turned left, 3.4 deviations from own baseline, held 1.0s 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[112.3s - 124.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 12s: candidate_talking, candidate_talking, head_turn 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[124.8s - 124.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:04, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[125.0s - 125.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:05, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[125.3s - 125.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:05, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[125.5s - 125.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:05, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[126.0s - 126.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:06, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[125.4s - 126.3s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[126.3s - 126.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:06, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[126.5s - 126.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:06, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[126.8s - 126.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:06, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[128.0s - 128.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:08, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[128.3s - 128.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:08, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[128.5s - 128.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:08, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[128.8s - 128.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:08, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[129.0s - 129.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:09, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[129.3s - 129.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:09, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[129.5s - 129.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:09, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[129.5s - 129.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:09, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[129.8s - 129.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:09, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[130.0s - 130.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:10, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[130.0s - 130.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:10, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[131.0s - 131.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:11, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[131.0s - 131.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:11, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[130.3s - 131.2s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[131.3s - 131.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:11, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[131.3s - 131.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:11, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[131.5s - 131.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:11, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[130.8s - 131.8s]</strong>
+                    <span class="rule-tag">head_turn (+10 pts)</span>:
+                    Head turned left, 3.9 deviations from own baseline, held 1.0s 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[131.8s - 131.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:11, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[132.0s - 132.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:12, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[132.3s - 132.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:12, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[132.5s - 132.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:12, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[132.8s - 132.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:12, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[133.0s - 133.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:13, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[133.0s - 133.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:13, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[133.3s - 133.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:13, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[133.3s - 133.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:13, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[133.5s - 133.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:13, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[133.5s - 133.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:13, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[133.8s - 133.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:13, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[133.8s - 133.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:13, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[134.0s - 134.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[134.0s - 134.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[134.3s - 134.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[134.3s - 134.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[134.5s - 134.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[134.5s - 134.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:14, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[125.4s - 134.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    7 separate events in 9s: candidate_talking, candidate_talking, head_turn <a class='clip-link' href='/api/clips/evt_0356' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[134.8s - 134.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[134.8s - 134.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[135.3s - 135.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:15, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[135.5s - 135.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:15, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[135.2s - 136.0s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[137.0s - 137.0s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.46) <a class='clip-link' href='/api/clips/evt_0362' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[137.3s - 137.3s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.46) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[137.5s - 137.5s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.46) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[137.8s - 137.8s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.46) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[138.0s - 138.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:18, not present during calibration <a class='clip-link' href='/api/clips/evt_0366' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[140.0s - 140.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:20, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[140.0s - 140.0s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.44) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[140.0s - 140.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[140.3s - 140.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:20, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[140.3s - 140.3s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.43) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[140.3s - 140.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[140.5s - 140.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:20, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[140.5s - 140.5s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.43) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[140.5s - 140.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[140.8s - 140.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:20, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[140.8s - 140.8s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.43) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[140.8s - 140.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:20, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[140.0s - 140.9s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) <a class='clip-link' href='/api/clips/evt_0379' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[141.0s - 141.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[141.3s - 141.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[141.3s - 141.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[141.5s - 141.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[142.0s - 142.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:22, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[142.3s - 142.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:22, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[142.3s - 142.3s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.35) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[142.5s - 142.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:22, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[142.5s - 142.5s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.36) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[142.8s - 142.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:22, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[142.8s - 142.8s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.37) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[143.0s - 143.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:23, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[143.0s - 143.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:23, not present during calibration 
+                </li>
+                </ul></details></td>
+        </tr>
+        
+        <tr>
+            <td class="mono font-bold">S03</td>
+            <td><span class="badge badge-alert">ALERT</span></td>
+            <td class="mono font-bold text-accent">132.0s</td>
+            <td class="mono">878.0</td>
+            <td class="mono">936.7</td>
+            <td class="mono">27</td>
+            <td class="mono">3</td>
+            <td><span class="text-sm">Failed / Uncalibrated</span></td>
+            <td><span class="text-sm">None</span></td>
+        </tr>
+        <tr>
+            <td colspan="9" class="event-cell"><details class='event-details'><summary>27 Recorded Events</summary><ul>
+                <li class="ev-warning">
+                    <strong>[8.5s - 8.5s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S03 (Energy: 30.5%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[10.8s - 10.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:10, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[11.0s - 11.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:11, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[11.2s - 11.2s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:11, not present during calibration <a class='clip-link' href='/api/clips/evt_0013' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[11.5s - 11.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:11, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[11.8s - 11.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:11, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[12.0s - 12.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:12, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[12.2s - 12.2s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:12, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[12.5s - 12.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:12, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[12.8s - 12.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:12, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.0s - 20.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.2s - 20.2s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.5s - 20.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:20, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[24.3s - 24.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:24, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[24.5s - 24.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:24, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[24.8s - 24.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:24, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[33.3s - 33.3s]</strong>
+                    <span class="rule-tag">object_chit (+60 pts)</span>:
+                    Prohibited paper/chit detected at S03 (on desk, conf 0.36) <a class='clip-link' href='/api/clips/evt_0147' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[45.8s - 45.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:45, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[74.0s - 74.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 01:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[74.3s - 74.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 01:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[74.5s - 74.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 01:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[74.8s - 74.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 01:14, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[83.0s - 83.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 01:23, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[103.3s - 103.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 01:43, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[103.5s - 103.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 01:43, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[103.8s - 103.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 01:43, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[104.0s - 104.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 01:44, not present during calibration 
+                </li>
+                </ul></details></td>
+        </tr>
+        
+        <tr>
+            <td class="mono font-bold">S05</td>
+            <td><span class="badge badge-alert">ALERT</span></td>
+            <td class="mono font-bold text-accent">103.0s</td>
+            <td class="mono">2016.8</td>
+            <td class="mono">2033.5</td>
+            <td class="mono">56</td>
+            <td class="mono">2</td>
+            <td><span class="text-sm">Failed / Uncalibrated</span></td>
+            <td><span class="text-sm">None</span></td>
+        </tr>
+        <tr>
+            <td colspan="9" class="event-cell"><details class='event-details'><summary>56 Recorded Events</summary><ul>
+                <li class="ev-warning">
+                    <strong>[3.0s - 9.0s]</strong>
+                    <span class="rule-tag">hidden_hands (+15 pts)</span>:
+                    Both wrists not visible for 6.0s 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[21.0s - 21.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 00:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[21.3s - 21.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 00:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[39.8s - 39.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 00:39, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[40.3s - 40.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 00:40, not present during calibration <a class='clip-link' href='/api/clips/evt_0158' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[42.3s - 42.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 00:42, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[46.5s - 46.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 00:46, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[47.0s - 47.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 00:47, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[47.8s - 47.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 00:47, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[49.3s - 49.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 00:49, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[64.0s - 64.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 01:04, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[64.0s - 64.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:04, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[64.3s - 64.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 01:04, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[64.3s - 64.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:04, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[64.5s - 64.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 01:04, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[64.5s - 64.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:04, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[71.8s - 71.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:11, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[73.0s - 73.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 01:13, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[82.8s - 82.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 01:22, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[82.8s - 82.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:22, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[83.0s - 83.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:23, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[83.3s - 83.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:23, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[83.5s - 83.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:23, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[83.8s - 83.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:23, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[89.0s - 89.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:29, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[89.3s - 89.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:29, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[89.5s - 89.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:29, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[89.8s - 89.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:29, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[90.0s - 90.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:30, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[90.8s - 90.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:30, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[91.8s - 91.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:31, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[92.3s - 92.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:32, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[92.5s - 92.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:32, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[92.8s - 92.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:32, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[94.0s - 94.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:34, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[94.3s - 94.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:34, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[94.5s - 94.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:34, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[100.3s - 100.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:40, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[125.0s - 125.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:05, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[125.3s - 125.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:05, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[125.5s - 125.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:05, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[125.8s - 125.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:05, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[126.0s - 126.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:06, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[126.3s - 126.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:06, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[126.5s - 126.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:06, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[129.0s - 129.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 02:09, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[129.0s - 129.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:09, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[129.3s - 129.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:09, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[129.5s - 129.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:09, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[129.8s - 129.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:09, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[130.0s - 130.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:10, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[130.3s - 130.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:10, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[130.5s - 130.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:10, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[130.8s - 130.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:10, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[131.5s - 131.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:11, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[132.0s - 132.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:12, not present during calibration 
+                </li>
+                </ul></details></td>
+        </tr>
+        
+        <tr>
+            <td class="mono font-bold">S01</td>
+            <td><span class="badge badge-calm">CALM</span></td>
+            <td class="mono font-bold text-accent">0.0s</td>
+            <td class="mono">0.0</td>
+            <td class="mono">0.0</td>
+            <td class="mono">0</td>
+            <td class="mono">0</td>
+            <td><span class="text-sm">Failed / Uncalibrated</span></td>
+            <td><span class="text-sm">None</span></td>
+        </tr>
+        <tr>
+            <td colspan="9" class="event-cell"><span class='text-muted'>No rule events recorded</span></td>
+        </tr>
+        
+        <tr>
+            <td class="mono font-bold">S02</td>
+            <td><span class="badge badge-calm">CALM</span></td>
+            <td class="mono font-bold text-accent">0.0s</td>
+            <td class="mono">0.0</td>
+            <td class="mono">10.0</td>
+            <td class="mono">3</td>
+            <td class="mono">1</td>
+            <td><span class="text-sm">Calibrated</span></td>
+            <td><span class="text-sm">None</span></td>
+        </tr>
+        <tr>
+            <td colspan="9" class="event-cell"><details class='event-details'><summary>3 Recorded Events</summary><ul>
+                <li class="ev-warning">
+                    <strong>[9.2s - 10.2s]</strong>
+                    <span class="rule-tag">head_turn (+10 pts)</span>:
+                    Head turned left, 2.6 deviations from own baseline, held 1.0s 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[71.4s - 72.4s]</strong>
+                    <span class="rule-tag">head_turn (+10 pts)</span>:
+                    Head turned left, 4.3 deviations from own baseline, held 1.0s 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[98.0s - 99.0s]</strong>
+                    <span class="rule-tag">head_turn (+10 pts)</span>:
+                    Head turned left, 3.4 deviations from own baseline, held 1.0s 
+                </li>
+                </ul></details></td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">Stream Integrity & Coverage Gaps</div>
+            <p class='text-muted'>No stream interruptions recorded. Continuous coverage verified.</p>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">Staff Invigilation Supervision & Attention Distribution</div>
+            <p class='text-muted'>No roving invigilation staff active in this session.</p>
+        </div>
+
+        <div class="footer">
+            <p><strong>Notice to Invigilators & Center Supervisors:</strong> Candidate alerts and staff observations are automated behavioral analytics for human review and do not constitute determinations or allegations of misconduct.</p>
+            <p style="margin-top: 4px;">Generated by SANKET Invigilation Assistant &middot; Zero biometric storage regime.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -110,6 +110,24 @@ def get_session_by_id(session_id: str) -> SessionSchema:
     return SessionSchema(**session)
 
 
+@app.post("/api/sessions/{session_id}/stop")
+def stop_session_by_id(session_id: str) -> Dict[str, Any]:
+    """Stops the active invigilation session immediately."""
+    if runner.is_busy():
+        runner.stop_session()
+        return {"ok": True, "message": f"Session {session_id} halt requested."}
+    return {"ok": True, "message": "No active session to stop."}
+
+
+@app.post("/api/sessions/stop")
+def stop_active_session() -> Dict[str, Any]:
+    """Stops whatever session is currently active."""
+    if runner.is_busy():
+        runner.stop_session()
+        return {"ok": True, "message": "Session halt requested."}
+    return {"ok": True, "message": "No active session."}
+
+
 @app.get("/api/sessions/{session_id}/seats", response_model=List[SeatStateSchema])
 def get_session_seats(session_id: str) -> List[SeatStateSchema]:
     """Retrieves per-seat real-time state and scores."""
