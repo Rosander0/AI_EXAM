@@ -43,9 +43,16 @@ def main() -> int:
         description="SANKET — AI Exam Invigilation Assistant (Store & Reporting)",
     )
     parser.add_argument(
+        "positional_source",
+        nargs="?",
+        default=None,
+        help="Path to video file, rtsp/http stream URL, or webcam index ('0')",
+    )
+    parser.add_argument(
         "--source",
+        "-s",
         type=str,
-        required=True,
+        default=None,
         help="Path to video file, rtsp/http stream URL, or webcam index ('0')",
     )
     parser.add_argument(
@@ -136,6 +143,10 @@ def main() -> int:
 
     args = parser.parse_args()
 
+    source_input = args.source or args.positional_source
+    if not source_input:
+        parser.error("the following arguments are required: source (or --source)")
+
     # Load configuration
     try:
         cfg = load_config(args.config)
@@ -168,7 +179,7 @@ def main() -> int:
 
     # Ingest video source
     try:
-        src = open_source(args.source, config_source=cfg.source)
+        src = open_source(source_input, config_source=cfg.source)
     except FileNotFoundError as e:
         print(f"Error: {e}", file=sys.stderr)
         return 1
@@ -176,7 +187,7 @@ def main() -> int:
         print(f"Error: {e}", file=sys.stderr)
         return 1
     except Exception as e:
-        print(f"Error initializing source '{args.source}': {e}", file=sys.stderr)
+        print(f"Error initializing source '{source_input}': {e}", file=sys.stderr)
         return 1
 
     print(f"[SOURCE] Name: {src.name} | Detected FPS: {src.fps:.2f} | Resolution: {src.width}x{src.height} (Scale: {src.scale:.3f})")
@@ -188,7 +199,7 @@ def main() -> int:
 
     store.create_session({
         "session_id": session_id,
-        "source": str(args.source),
+        "source": str(source_input),
         "state": "running",
         "progress": 0.0,
         "frames_processed": 0,

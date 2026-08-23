@@ -1,9 +1,0 @@
-event_id,session_id,seat_id,track_id,t_start,t_end,frame_start,frame_end,rule,points,score_after,confidence,severity,reason,clip_path,thumb_path
-evt_0001,sess_20260820_125111,S02,1,6.04,6.04,151,151,object_phone,100.0,100.0,0.12,critical,"Prohibited mobile phone detected at S02 (near left wrist, conf 0.12)",,
-evt_0002,sess_20260820_125111,S02,1,8.52,8.52,213,213,object_phone,100.0,196.3,0.13,critical,"Prohibited mobile phone detected at S02 (near left wrist, conf 0.13)",,
-evt_0003,sess_20260820_125111,S02,1,8.8,8.8,220,220,object_phone,100.0,295.9,0.22,critical,"Prohibited mobile phone detected at S02 (near left wrist, conf 0.22)",,
-evt_0004,sess_20260820_125111,S01,2,44.68,45.68,1117,1142,head_turn,10.0,10.0,0.95,warning,"Head turned left, 5.5 deviations from own baseline, held 1.0s",,
-evt_0005,sess_20260820_125111,S02,1,54.8,54.8,1370,1370,object_phone,100.0,326.9,0.13,critical,"Prohibited mobile phone detected at S02 (near left wrist, conf 0.13)",,
-evt_0006,sess_20260820_125111,S01,2,54.72,55.72,1368,1393,head_turn,10.0,10.0,0.95,warning,"Head turned left, 41.1 deviations from own baseline, held 1.0s",,
-evt_0007,sess_20260820_125111,S01,2,54.72,55.72,1368,1393,turning_back,50.0,60.0,0.85,warning,"Torso rotated away from desk, shoulder span 30% of own baseline, held 1.0s",,
-evt_0008,sess_20260820_125111,S01,2,44.68,55.72,1117,1393,repeated_action,25.0,85.0,0.9,warning,"3 separate events in 11s: head_turn, head_turn, turning_back",,

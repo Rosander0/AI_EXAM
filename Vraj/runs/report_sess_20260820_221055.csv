@@ -1,5 +1,0 @@
-event_id,session_id,seat_id,track_id,t_start,t_end,frame_start,frame_end,rule,points,score_after,confidence,severity,reason,clip_path,thumb_path
-evt_0001,sess_20260820_221055,S05,4,5.5,5.5,44,44,hand_phone_grip,80.0,80.0,0.88,warning,"Handheld phone grip gesture detected at S05 (Left hand, flexed fingers + elevated thumb)",,
-evt_0002,sess_20260820_221055,S05,4,5.75,5.75,46,46,hand_phone_grip,80.0,159.6,0.88,critical,"Handheld phone grip gesture detected at S05 (Left hand, flexed fingers + elevated thumb)",,
-evt_0003,sess_20260820_221055,S05,4,5.88,5.88,47,47,hand_phone_grip,80.0,239.4,0.88,critical,"Handheld phone grip gesture detected at S05 (Left hand, flexed fingers + elevated thumb)",,
-evt_0004,sess_20260820_221055,S05,4,6.0,6.0,48,48,hand_phone_grip,80.0,319.2,0.88,critical,"Handheld phone grip gesture detected at S05 (Left hand, flexed fingers + elevated thumb)",,

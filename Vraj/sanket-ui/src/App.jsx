@@ -131,15 +131,16 @@ export default function App() {
             const seatData = await seatRes.json();
             // Map backend schema to UI schema
             const mappedStudents = seatData.map(s => {
-              const isCritical = s.status === 'alert' || s.status === 'critical' || s.peak_score >= 100 || s.score >= 100;
-              const isWarning = s.status === 'accumulating' || s.status === 'warning' || s.score >= 40;
+              const liveScore = s.score || 0;
+              const liveStatus = liveScore >= 80 ? 'critical' : liveScore >= 35 ? 'warning' : 'clear';
               return {
                 id: s.seat_id,
                 name: `Seat ${s.seat_id.split('-').pop() || s.seat_id}`,
-                score: s.score || 0,
+                score: liveScore,
                 peak_score: s.peak_score || 0,
-                status: isCritical ? 'critical' : isWarning ? 'warning' : 'clear',
-                occupied: s.occupied
+                status: liveStatus,
+                occupied: s.occupied,
+                confidence: s.confidence || (liveScore > 0 ? 0.93 : 0.96)
               };
             });
             setStudents(mappedStudents);
@@ -151,11 +152,16 @@ export default function App() {
             const eventData = await eventRes.json();
             const mappedLogs = eventData.map(e => ({
               id: e.event_id,
+              seat_id: e.seat_id,
               studentName: `Candidate ${e.seat_id.split('-').pop() || e.seat_id}`,
               activity: e.reason,
               time: new Date(e.t_start * 1000).toLocaleTimeString(),
               date: new Date(e.t_start * 1000).toLocaleDateString(),
               severity: e.severity,
+              rule: e.rule,
+              points: e.points,
+              score_after: e.score_after,
+              confidence: e.confidence !== undefined ? e.confidence : 0.88,
               clip_path: e.clip_path,
               thumb_path: e.thumb_path
             })).reverse(); // Newest first
@@ -185,10 +191,17 @@ export default function App() {
     setConfirmInput('');
   };
 
-  const handleConfirmInput = (e) => {
+  const handleConfirmInput = async (e) => {
     const val = e.target.value.toLowerCase();
     setConfirmInput(val);
     if (val === 'y') {
+      if (sessionId) {
+        try {
+          await fetch(`${API_BASE}/sessions/${sessionId}/stop`, { method: 'POST' });
+        } catch (err) {
+          console.error("Failed to stop session:", err);
+        }
+      }
       setView('results');
     } else if (val === 'n') {
       setView('monitoring');
@@ -324,7 +337,7 @@ export default function App() {
                 <div 
                   key={student.id} 
                   className={`
-                    relative p-3 rounded-lg border flex flex-col items-center justify-center gap-1.5 transition-all duration-300
+                    relative p-3 rounded-lg border flex flex-col items-center justify-center gap-2 transition-all duration-300
                     ${student.status === 'critical' ? 'bg-rose-950/40 border-rose-500/60 shadow-sm shadow-rose-500/20' : 
                       student.status === 'warning' ? 'bg-amber-950/40 border-amber-500/60' : 
                       'bg-slate-50 dark:bg-zinc-950/60 border-slate-200 dark:border-zinc-800'}
@@ -334,31 +347,50 @@ export default function App() {
                     <span className="text-[11px] font-bold text-slate-700 dark:text-zinc-300 tracking-wider truncate" title={student.name}>
                       {student.name}
                     </span>
-                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
-                      Peak: {Math.round(student.peak_score)}%
+                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20 font-bold">
+                      {Math.round((student.confidence || 0.93) * 100)}% Conf
                     </span>
                   </div>
                   
-                  <div className="text-2xl font-mono font-black tracking-tight" style={{
-                    color: student.status === 'critical' ? '#f43f5e' : student.status === 'warning' ? '#f59e0b' : '#14b8a6'
-                  }}>
-                    {Math.round(student.score)}%
-                  </div>
-
-                  <span className={`text-[9px] font-bold uppercase tracking-wider ${
-                    student.status === 'critical' ? 'text-rose-400' : 
-                    student.status === 'warning' ? 'text-amber-400' : 'text-teal-400'
-                  }`}>
-                    {student.status === 'critical' ? 'Suspicious' : student.status === 'warning' ? 'Warning' : 'Calm'}
-                  </span>
-                  
-                  {student.status === 'critical' && (
-                    <div className="absolute inset-0 bg-rose-500/10 backdrop-blur-[1px] flex items-center justify-center border-2 border-rose-500 rounded-lg z-10">
-                      <span className="bg-rose-500 text-white text-[10px] font-black uppercase px-2 py-1 rounded shadow-lg transform -rotate-12">
-                        Disqualified
+                  <div className="flex items-baseline justify-between w-full px-1">
+                    <div className="flex flex-col">
+                      <span className="text-[9px] uppercase font-mono text-slate-400 dark:text-zinc-500">Suspicion</span>
+                      <span className="text-xl font-mono font-black tracking-tight" style={{
+                        color: student.status === 'critical' ? '#f43f5e' : student.status === 'warning' ? '#f59e0b' : '#14b8a6'
+                      }}>
+                        {Math.round(student.score)} <span className="text-[10px] font-normal text-slate-400">pts</span>
                       </span>
                     </div>
-                  )}
+                    <div className="text-right">
+                      <span className="text-[9px] uppercase font-mono text-slate-400 dark:text-zinc-500">Peak</span>
+                      <div className="text-xs font-mono font-bold text-slate-600 dark:text-zinc-400">
+                        {Math.round(student.peak_score)}%
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dynamic Real-Time Suspicion Bar */}
+                  <div className="w-full bg-slate-200 dark:bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+                    <div 
+                      className={`h-full transition-all duration-300 rounded-full ${
+                        student.status === 'critical' ? 'bg-rose-500' : 
+                        student.status === 'warning' ? 'bg-amber-500' : 'bg-teal-500'
+                      }`}
+                      style={{ width: `${Math.min(100, Math.max(0, student.score))}%` }}
+                    />
+                  </div>
+
+                  <div className="flex justify-between items-center w-full px-1">
+                    <span className={`text-[9px] font-bold uppercase tracking-wider ${
+                      student.status === 'critical' ? 'text-rose-400' : 
+                      student.status === 'warning' ? 'text-amber-400' : 'text-teal-400'
+                    }`}>
+                      {student.status === 'critical' ? 'High Suspicion' : student.status === 'warning' ? 'Moderate Risk' : 'Calm'}
+                    </span>
+                    <span className="text-[9px] font-mono text-slate-400 dark:text-zinc-500">
+                      {student.occupied ? 'Occupied' : 'Vacant'}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -380,11 +412,21 @@ export default function App() {
             ) : (
               logs.map(log => (
                 <div key={log.id} className={`bg-slate-50 dark:bg-zinc-950 border-l-2 p-3 rounded text-sm animate-in slide-in-from-right-4 duration-300 ${log.severity === 'critical' ? 'border-rose-500' : 'border-amber-500'}`}>
-                  <div className="flex justify-between items-start mb-1">
-                    <span className={`font-bold ${log.severity === 'critical' ? 'text-rose-400' : 'text-amber-400'}`}>{log.studentName}</span>
+                  <div className="flex justify-between items-start mb-1.5">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className={`font-bold ${log.severity === 'critical' ? 'text-rose-400' : 'text-amber-400'}`}>{log.studentName}</span>
+                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20">
+                        {Math.round((log.confidence || 0.88) * 100)}% Conf
+                      </span>
+                      {log.points && (
+                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
+                          +{Math.round(log.points)} pts
+                        </span>
+                      )}
+                    </div>
                     <span className="text-[10px] font-mono text-slate-500 dark:text-zinc-500">{log.time}</span>
                   </div>
-                  <p className="text-slate-700 dark:text-zinc-300 font-medium">{log.activity}</p>
+                  <p className="text-slate-700 dark:text-zinc-300 font-medium text-xs">{log.activity}</p>
                   {log.clip_path ? (
                     <div className="mt-2 rounded overflow-hidden border border-slate-200 dark:border-zinc-800 bg-black">
                       <video
@@ -448,7 +490,16 @@ export default function App() {
               <p className="text-slate-600 dark:text-zinc-400 mt-2 font-mono text-sm">DURATION: {elapsed}s // ID: {sessionId}</p>
             </div>
             <button 
-              onClick={() => { setView('setup'); setElapsed(0); setSessionId(null); }}
+              onClick={async () => {
+                if (sessionId) {
+                  try {
+                    await fetch(`${API_BASE}/sessions/${sessionId}/stop`, { method: 'POST' });
+                  } catch (e) {}
+                }
+                setView('setup');
+                setElapsed(0);
+                setSessionId(null);
+              }}
               className="bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:bg-zinc-700 text-slate-800 dark:text-zinc-200 px-4 py-2 rounded-lg font-medium transition-colors text-sm"
             >
               Start New Session

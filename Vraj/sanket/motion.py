@@ -56,6 +56,8 @@ class MotionAnalyzer:
         self.prev_gray: Optional[np.ndarray] = None
         self.last_t: Optional[float] = None
         self.last_profiles: Dict[str, SeatMotionProfile] = {}
+        self.last_fire_time: Dict[str, float] = {}
+        self.cooldown_s: float = 20.0
 
     def analyze_frame(
         self,
@@ -155,23 +157,26 @@ class MotionAnalyzer:
             )
             profiles[sid] = prof
 
-            # Optional rule firing for sudden erratic motion spurts
+            # Optional rule firing for sudden erratic motion spurts (with debouncing)
             if is_spike and seat.occupied:
-                reason = f"Abnormal rapid motion detected at {sid} (Energy: {energy*100:.1f}%, Velocity: {avg_vel:.1f}px/s)"
-                firings.append(
-                    RuleFiring(
-                        rule="motion_spurt",
-                        points=20.0,
-                        confidence=0.75,
-                        reason=reason,
-                        t_start=t,
-                        t_end=t,
-                        seat_id=sid,
-                        track_id=seat.current_track_id,
-                        frame_start=frame_index,
-                        frame_end=frame_index,
+                last_t = self.last_fire_time.get(sid, -999.0)
+                if (t - last_t) >= self.cooldown_s:
+                    self.last_fire_time[sid] = t
+                    reason = f"Abnormal rapid motion detected at {sid} (Energy: {energy*100:.1f}%, Velocity: {avg_vel:.1f}px/s)"
+                    firings.append(
+                        RuleFiring(
+                            rule="motion_spurt",
+                            points=20.0,
+                            confidence=0.75,
+                            reason=reason,
+                            t_start=t,
+                            t_end=t,
+                            seat_id=sid,
+                            track_id=seat.current_track_id,
+                            frame_start=frame_index,
+                            frame_end=frame_index,
+                        )
                     )
-                )
 
         self.last_profiles = profiles
         return profiles, firings

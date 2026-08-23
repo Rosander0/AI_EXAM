@@ -54,6 +54,7 @@ class ScoringEngine:
         score_cfg = config.get("scoring", {})
         self.decay_rate = float(score_cfg.get("decay_rate", 1.5))
         self.alert_thresh = float(score_cfg.get("alert_threshold", 100.0))
+        self.max_score = float(score_cfg.get("max_score", 150.0))
         self.realert_s = float(score_cfg.get("realert_seconds", 60.0))
         self.late_multiplier = float(score_cfg.get("late_exam_multiplier", 1.0))
         self.weights: Dict[str, float] = score_cfg.get("weights", {})
@@ -103,7 +104,7 @@ class ScoringEngine:
                 weight = self.weights.get(firing.rule, firing.points)
                 pts = weight * self.late_multiplier
                 points_added += pts
-                seat.score += pts
+                seat.score = min(self.max_score, seat.score + pts)
                 seat.event_count += 1
                 self.distinct_rules_set[sid].add(firing.rule)
                 seat.distinct_rules = len(self.distinct_rules_set[sid])

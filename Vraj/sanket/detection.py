@@ -73,6 +73,10 @@ class ObjectDetector:
         self.total_chits_checked: int = 0
         self.total_chits_filtered: int = 0
 
+        # Episode debouncing & cooldown per (seat_id, rule_name) to avoid repeating video/event creation
+        self.last_object_fire_time: Dict[Tuple[str, str], float] = {}
+        self.object_cooldown_seconds: float = 15.0
+
     def detect_and_evaluate(
         self,
         frame_image: np.ndarray,
@@ -215,8 +219,23 @@ class ObjectDetector:
                     authorized = True
                     label = f"approved_{cls_name}"
 
-            # 4. Generate Rule Firings for Unauthorized Items
+            # 4. Generate Rule Firings for Unauthorized Items (with Episode Debouncing)
             if not authorized:
+                rule_name = (
+                    "object_phone" if is_phone else
+                    "object_chit" if is_chit else
+                    "object_smartwatch" if is_smartwatch else
+                    "object_earbuds" if is_earbud else
+                    "object_unregistered"
+                )
+
+                fire_key = (assoc_sid, rule_name)
+                last_t = self.last_object_fire_time.get(fire_key, -999.0)
+                if (t - last_t) < self.object_cooldown_seconds:
+                    # Debounced: Candidate is in an ongoing episode; prevent duplicate alerts and clips
+                    continue
+                self.last_object_fire_time[fire_key] = t
+
                 wrist_desc = f"near {assoc_wrist} wrist" if assoc_wrist != "body" else "on desk"
                 if is_phone:
                     reason = f"Prohibited mobile phone detected at {assoc_sid} ({wrist_desc}, conf {b_conf:.2f})"

@@ -42,15 +42,25 @@ class ClipExtractor:
         self._worker_thread = threading.Thread(target=self._worker_loop, daemon=True)
         self._worker_thread.start()
 
+        # Per-seat clip debouncing: seat_id -> last_clip_end_t
+        self.last_clip_time: Dict[str, float] = {}
+        self.min_clip_interval_s: float = 8.0
+
     def enqueue_clip(
         self,
         event: Event,
         ring_buffer: List[Tuple[float, np.ndarray]],
         fps: float = 25.0,
     ) -> None:
-        """Enqueues a critical event's buffered frames for async video writing."""
+        """Enqueues a critical event's buffered frames for async video writing with debouncing."""
         if not ring_buffer:
             return
+
+        # Suppress duplicate clip generation for the same candidate's continuous episode
+        last_t = self.last_clip_time.get(event.seat_id, -999.0)
+        if (event.t_end - last_t) < self.min_clip_interval_s:
+            return
+        self.last_clip_time[event.seat_id] = event.t_end
 
         # Copy frames from ring buffer for the async worker
         buffer_copy = [(t, img.copy()) for t, img in ring_buffer]

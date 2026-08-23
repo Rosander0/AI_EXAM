@@ -1,4 +1,0 @@
-event_id,session_id,seat_id,track_id,t_start,t_end,frame_start,frame_end,rule,points,score_after,confidence,severity,reason,clip_path,thumb_path
-evt_0001,sess_20260822_192840,S03,1,3.4,4.24,86,106,candidate_talking,40.0,40.0,0.85,warning,Candidate turned towards S04 (talking / mutual gaze observed for 0.8s),,
-evt_0002,sess_20260822_192840,S01,4,5.6,5.6,140,140,object_phone,100.0,100.0,0.51,critical,"Prohibited mobile phone detected at S01 (near right wrist, conf 0.51)",/api/clips/evt_0002,/api/thumbs/evt_0002
-evt_0003,sess_20260822_192840,S01,4,5.68,5.68,142,142,object_phone,100.0,199.8,0.4,critical,"Prohibited mobile phone detected at S01 (near right wrist, conf 0.40)",/api/clips/evt_0003,/api/thumbs/evt_0003

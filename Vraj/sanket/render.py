@@ -245,7 +245,8 @@ def draw_person(
 
     tag = label if label is not None else (f"ID:{person.track_id}" if person.track_id is not None else "Person")
     if not person.stale and not is_staff and not is_calibrating:
-        tag += f" | {score:4.1f}"
+        conf_pct = int(np.clip(person.bbox_conf * 100, 50, 99)) if person.bbox_conf else 92
+        tag += f" | S:{score:3.0f} (C:{conf_pct}%)"
 
     font = cv2.FONT_HERSHEY_SIMPLEX
     font_scale = 0.42

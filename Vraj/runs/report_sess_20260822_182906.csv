@@ -1,4 +1,0 @@
-event_id,session_id,seat_id,track_id,t_start,t_end,frame_start,frame_end,rule,points,score_after,confidence,severity,reason,clip_path,thumb_path
-evt_0001,sess_20260822_182906,S02,1,8.8,8.8,220,220,object_phone,100.0,100.0,0.38,critical,"Prohibited mobile phone detected at S02 (near left wrist, conf 0.38)",/api/clips/evt_0001,/api/thumbs/evt_0001
-evt_0002,sess_20260822_182906,S02,1,8.88,8.88,222,222,object_phone,100.0,199.9,0.35,critical,"Prohibited mobile phone detected at S02 (near left wrist, conf 0.35)",/api/clips/evt_0002,/api/thumbs/evt_0002
-evt_0003,sess_20260822_182906,S02,1,10.96,11.96,274,299,head_turn,10.0,205.9,0.84,critical,"Head turned right, 3.4 deviations from own baseline, held 1.0s",/api/clips/evt_0003,/api/thumbs/evt_0003

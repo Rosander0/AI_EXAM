@@ -80,10 +80,15 @@ def list_sessions() -> List[SessionSchema]:
 def create_session(payload: SessionCreateRequest) -> SessionSchema:
     """Starts a new invigilation session in a background thread."""
     if runner.is_busy():
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail=f"Another session is currently active: {runner.active_session_id}",
-        )
+        # Gracefully stop the prior active session
+        runner.stop_session()
+        if runner.active_thread:
+            runner.active_thread.join(timeout=2.0)
+        if runner.is_busy():
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail=f"Previous session {runner.active_session_id} is still terminating. Please retry in a moment.",
+            )
 
     # Validate source
     source_path = payload.source
@@ -99,6 +104,16 @@ def create_session(payload: SessionCreateRequest) -> SessionSchema:
         return SessionSchema(**session_rec)
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+
+
+@app.post("/api/sessions/{session_id}/stop")
+@app.post("/api/sessions/stop")
+def stop_session(session_id: Optional[str] = None) -> Dict[str, Any]:
+    """Stops the currently running analysis session."""
+    if runner.is_busy():
+        runner.stop_session()
+        return {"ok": True, "message": "Stop signal sent to active session"}
+    return {"ok": True, "message": "No active session running"}
 
 
 @app.get("/api/sessions/{session_id}", response_model=SessionSchema)

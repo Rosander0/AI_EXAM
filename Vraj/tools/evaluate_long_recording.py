@@ -310,6 +310,45 @@ def run_long_eval(
         event_type_summary[etype][stat] += 1
         event_type_summary[etype]["TOTAL"] += 1
 
+    # Per-Seat Breakdown
+    per_seat_summary: Dict[str, Dict[str, Any]] = defaultdict(lambda: {
+        "total": 0, "caught": 0, "caught_weak": 0, "near": 0, "flat": 0, "structural": 0
+    })
+    for el in evaluated_labels:
+        sid = el["seat_id"]
+        st = el["status"].lower()
+        per_seat_summary[sid]["total"] += 1
+        per_seat_summary[sid][st] += 1
+
+    # Time-shifted Null Test (10 distinct shifts from +120s to +1200s)
+    null_shift_recalls: List[float] = []
+    for shift_s in [120.0, 240.0, 360.0, 480.0, 600.0, 720.0, 840.0, 960.0, 1080.0, 1200.0]:
+        shifted_caught = 0
+        for lbl in gt_labels:
+            sh_start = (lbl["t_start"] + shift_s) % max_time_s
+            sh_end = (lbl["t_end"] + shift_s) % max_time_s
+            if sh_end < sh_start:
+                sh_end = max_time_s
+            lsid = lbl["seat_id"]
+            matched = [
+                e for e in all_events
+                if e.seat_id == lsid and (sh_start - 3.0) <= e.t_end and e.t_start <= (sh_end + 3.0)
+            ]
+            if matched:
+                shifted_caught += 1
+        null_shift_recalls.append(round((shifted_caught / len(gt_labels)) * 100.0, 1))
+
+    mean_null_recall = round(float(np.mean(null_shift_recalls)), 1)
+
+    # Score Curve Metrics per Seat
+    s02_scores = [r.get("S02_score", 0.0) for r in timeline_records]
+    s02_peak = max(s02_scores) if s02_scores else 0.0
+    s02_time_above_100 = sum([5.0 for s in s02_scores if s >= 100.0])
+
+    s01_scores = [r.get("S01_score", 0.0) for r in timeline_records]
+    s01_peak = max(s01_scores) if s01_scores else 0.0
+    s01_time_above_100 = sum([5.0 for s in s01_scores if s >= 100.0])
+
     results = {
         "session_id": session_id,
         "frames_processed": frames_processed,
@@ -323,8 +362,24 @@ def run_long_eval(
             "near": near_count,
             "flat": flat_count,
             "structural": structural_count,
+            "real_recall_pct": round(((caught_count + caught_weak_count) / len(gt_labels)) * 100.0, 1),
+            "null_chance_recall_pct": mean_null_recall,
+            "signal_gap_points": round((((caught_count + caught_weak_count) / len(gt_labels)) * 100.0) - mean_null_recall, 1),
             "outside_window_firings": len(outside_window_events),
             "outside_window_fa_per_hour": round(fa_per_hour, 2),
+        },
+        "per_seat_breakdown": dict(per_seat_summary),
+        "seat_score_curves": {
+            "S01": {
+                "peak_score": round(s01_peak, 1),
+                "time_above_threshold_s": round(s01_time_above_100, 1),
+                "total_events": sum(1 for e in all_events if e.seat_id == "S01"),
+            },
+            "S02": {
+                "peak_score": round(s02_peak, 1),
+                "time_above_threshold_s": round(s02_time_above_100, 1),
+                "total_events": sum(1 for e in all_events if e.seat_id == "S02"),
+            }
         },
         "labels": evaluated_labels,
         "event_type_breakdown": dict(event_type_summary),
