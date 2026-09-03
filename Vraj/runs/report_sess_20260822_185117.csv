@@ -1,0 +1,70 @@
+event_id,session_id,seat_id,track_id,t_start,t_end,frame_start,frame_end,rule,points,score_after,confidence,severity,reason,clip_path,thumb_path
+evt_0001,sess_20260822_185117,S04,4,4.12,5.0,19,40,candidate_talking,40.0,40.0,0.85,warning,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0002,sess_20260822_185117,S05,3,5.62,5.62,45,45,object_phone,100.0,100.0,0.21,critical,"Prohibited mobile phone detected at S05 (on desk, conf 0.21)",/api/clips/evt_0002,/api/thumbs/evt_0002
+evt_0003,sess_20260822_185117,S05,3,3.0,9.0,-78,72,hidden_hands,15.0,106.8,0.75,critical,Both wrists not visible for 6.0s,/api/clips/evt_0003,/api/thumbs/evt_0003
+evt_0004,sess_20260822_185117,S04,4,8.25,9.25,49,74,head_turn,10.0,39.6,0.85,warning,"Head turned left, 3.4 deviations from own baseline, held 1.0s",,
+evt_0005,sess_20260822_185117,S04,4,9.0,9.88,58,79,candidate_talking,40.0,78.1,0.85,warning,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0006,sess_20260822_185117,S04,4,4.12,9.88,-64,79,repeated_action,25.0,103.1,0.9,critical,"3 separate events in 5s: candidate_talking, head_turn, candidate_talking",/api/clips/evt_0006,/api/thumbs/evt_0006
+evt_0007,sess_20260822_185117,S02,1,9.25,10.25,57,82,head_turn,10.0,10.0,0.68,warning,"Head turned left, 2.7 deviations from own baseline, held 1.0s",,
+evt_0008,sess_20260822_185117,S03,2,10.38,10.38,83,83,object_phone,100.0,100.0,0.25,critical,"Prohibited mobile phone detected at S03 (near right wrist, conf 0.25)",/api/clips/evt_0008,/api/thumbs/evt_0008
+evt_0009,sess_20260822_185117,S02,1,10.75,10.75,86,86,object_chit,60.0,68.8,0.17,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.22)",/api/clips/evt_0009,/api/thumbs/evt_0009
+evt_0010,sess_20260822_185117,S02,1,13.0,13.0,104,104,object_chit,60.0,123.3,0.18,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.23)",/api/clips/evt_0010,/api/thumbs/evt_0010
+evt_0011,sess_20260822_185117,S02,1,13.0,13.0,104,104,object_chit,60.0,183.3,0.18,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.23)",/api/clips/evt_0011,/api/thumbs/evt_0011
+evt_0012,sess_20260822_185117,S02,1,13.0,13.0,104,104,object_chit,60.0,243.3,0.17,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.21)",/api/clips/evt_0012,/api/thumbs/evt_0012
+evt_0013,sess_20260822_185117,S03,2,13.0,13.0,104,104,object_chit,60.0,153.6,0.19,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.23)",/api/clips/evt_0013,/api/thumbs/evt_0013
+evt_0014,sess_20260822_185117,S02,1,13.25,13.25,106,106,object_chit,60.0,302.7,0.2,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.25)",/api/clips/evt_0014,/api/thumbs/evt_0014
+evt_0015,sess_20260822_185117,S02,1,13.25,13.25,106,106,object_chit,60.0,362.7,0.19,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.24)",/api/clips/evt_0015,/api/thumbs/evt_0015
+evt_0016,sess_20260822_185117,S02,1,13.25,13.25,106,106,object_chit,60.0,422.7,0.19,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.23)",/api/clips/evt_0016,/api/thumbs/evt_0016
+evt_0017,sess_20260822_185117,S03,2,13.25,13.25,106,106,object_chit,60.0,213.0,0.21,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.26)",/api/clips/evt_0017,/api/thumbs/evt_0017
+evt_0018,sess_20260822_185117,S02,1,13.5,13.5,108,108,object_chit,60.0,482.1,0.21,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.27)",/api/clips/evt_0018,/api/thumbs/evt_0018
+evt_0019,sess_20260822_185117,S02,1,13.5,13.5,108,108,object_chit,60.0,542.1,0.18,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.23)",/api/clips/evt_0019,/api/thumbs/evt_0019
+evt_0020,sess_20260822_185117,S02,1,13.5,13.5,108,108,object_chit,60.0,602.1,0.18,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.23)",/api/clips/evt_0020,/api/thumbs/evt_0020
+evt_0021,sess_20260822_185117,S03,2,13.5,13.5,108,108,object_chit,60.0,272.4,0.19,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.24)",/api/clips/evt_0021,/api/thumbs/evt_0021
+evt_0022,sess_20260822_185117,S02,1,13.75,13.75,110,110,object_chit,60.0,661.5,0.2,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.26)",/api/clips/evt_0022,/api/thumbs/evt_0022
+evt_0023,sess_20260822_185117,S02,1,13.75,13.75,110,110,object_chit,60.0,721.5,0.19,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.24)",/api/clips/evt_0023,/api/thumbs/evt_0023
+evt_0024,sess_20260822_185117,S03,2,13.75,13.75,110,110,object_chit,60.0,331.8,0.19,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.24)",/api/clips/evt_0024,/api/thumbs/evt_0024
+evt_0025,sess_20260822_185117,S04,4,13.88,14.75,97,118,candidate_talking,40.0,131.3,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0025,/api/thumbs/evt_0025
+evt_0026,sess_20260822_185117,S03,2,14.88,14.88,119,119,object_chit,60.0,389.0,0.17,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.21)",/api/clips/evt_0026,/api/thumbs/evt_0026
+evt_0027,sess_20260822_185117,S03,2,15.0,15.0,120,120,object_chit,60.0,448.7,0.17,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.22)",/api/clips/evt_0027,/api/thumbs/evt_0027
+evt_0028,sess_20260822_185117,S03,2,15.25,15.25,122,122,object_chit,60.0,508.1,0.17,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.21)",/api/clips/evt_0028,/api/thumbs/evt_0028
+evt_0029,sess_20260822_185117,S03,2,15.5,15.5,124,124,object_chit,60.0,567.5,0.18,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.22)",/api/clips/evt_0029,/api/thumbs/evt_0029
+evt_0030,sess_20260822_185117,S03,2,15.75,15.75,126,126,object_chit,60.0,626.9,0.19,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.24)",/api/clips/evt_0030,/api/thumbs/evt_0030
+evt_0031,sess_20260822_185117,S02,1,15.25,16.25,105,130,head_turn,10.0,725.4,0.86,critical,"Head turned left, 3.4 deviations from own baseline, held 1.0s",/api/clips/evt_0031,/api/thumbs/evt_0031
+evt_0032,sess_20260822_185117,S02,1,17.75,17.75,142,142,object_chit,60.0,781.7,0.18,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.22)",/api/clips/evt_0032,/api/thumbs/evt_0032
+evt_0033,sess_20260822_185117,S03,2,17.75,17.75,142,142,object_chit,60.0,682.0,0.17,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.22)",/api/clips/evt_0033,/api/thumbs/evt_0033
+evt_0034,sess_20260822_185117,S03,2,18.38,18.38,147,147,object_chit,60.0,740.5,0.17,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.21)",/api/clips/evt_0034,/api/thumbs/evt_0034
+evt_0035,sess_20260822_185117,S03,2,18.5,18.5,148,148,object_chit,60.0,800.2,0.17,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.21)",/api/clips/evt_0035,/api/thumbs/evt_0035
+evt_0036,sess_20260822_185117,S04,4,18.75,19.62,136,157,candidate_talking,40.0,159.4,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0036,/api/thumbs/evt_0036
+evt_0037,sess_20260822_185117,S04,4,9.0,19.88,-112,159,repeated_action,25.0,183.8,0.9,critical,"5 separate events in 10s: candidate_talking, candidate_talking, candidate_talking",/api/clips/evt_0037,/api/thumbs/evt_0037
+evt_0038,sess_20260822_185117,S04,4,23.62,24.5,175,196,candidate_talking,40.0,212.5,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0038,/api/thumbs/evt_0038
+evt_0039,sess_20260822_185117,S04,4,24.75,25.75,181,206,head_turn,10.0,219.5,0.95,critical,"Head turned left, 11.0 deviations from own baseline, held 1.0s",/api/clips/evt_0039,/api/thumbs/evt_0039
+evt_0040,sess_20260822_185117,S02,1,25.75,26.75,189,214,head_turn,10.0,769.8,0.94,critical,"Head turned left, 3.8 deviations from own baseline, held 1.0s",/api/clips/evt_0040,/api/thumbs/evt_0040
+evt_0041,sess_20260822_185117,S02,1,9.25,26.75,-223,214,repeated_action,25.0,794.8,0.9,critical,"3 separate events in 17s: head_turn, head_turn, head_turn",/api/clips/evt_0041,/api/thumbs/evt_0041
+evt_0042,sess_20260822_185117,S03,2,28.12,28.12,225,225,object_chit,60.0,836.8,0.17,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.21)",/api/clips/evt_0042,/api/thumbs/evt_0042
+evt_0043,sess_20260822_185117,S04,4,28.5,29.38,214,235,candidate_talking,40.0,250.6,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0043,/api/thumbs/evt_0043
+evt_0044,sess_20260822_185117,S04,4,23.62,29.88,83,239,repeated_action,25.0,274.4,0.9,critical,"8 separate events in 6s: candidate_talking, head_turn, candidate_talking",/api/clips/evt_0044,/api/thumbs/evt_0044
+evt_0045,sess_20260822_185117,S02,1,31.38,31.38,251,251,object_chit,60.0,843.5,0.18,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.23)",/api/clips/evt_0045,/api/thumbs/evt_0045
+evt_0046,sess_20260822_185117,S03,2,31.38,31.38,251,251,object_chit,60.0,888.9,0.23,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.29)",/api/clips/evt_0046,/api/thumbs/evt_0046
+evt_0047,sess_20260822_185117,S03,2,31.5,31.5,252,252,object_chit,60.0,948.5,0.18,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.22)",/api/clips/evt_0047,/api/thumbs/evt_0047
+evt_0048,sess_20260822_185117,S03,2,31.75,31.75,254,254,object_chit,60.0,1007.9,0.2,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.25)",/api/clips/evt_0048,/api/thumbs/evt_0048
+evt_0049,sess_20260822_185117,S03,2,33.25,33.25,266,266,object_chit,60.0,1064.3,0.27,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.33)",/api/clips/evt_0049,/api/thumbs/evt_0049
+evt_0050,sess_20260822_185117,S03,2,33.25,33.25,266,266,object_chit,60.0,1124.3,0.2,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.25)",/api/clips/evt_0050,/api/thumbs/evt_0050
+evt_0051,sess_20260822_185117,S02,1,33.5,34.5,251,276,head_turn,10.0,845.9,0.68,critical,"Head turned left, 2.7 deviations from own baseline, held 1.0s",/api/clips/evt_0051,/api/thumbs/evt_0051
+evt_0052,sess_20260822_185117,S03,2,35.38,35.38,283,283,object_chit,60.0,1179.1,0.17,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.21)",/api/clips/evt_0052,/api/thumbs/evt_0052
+evt_0053,sess_20260822_185117,S04,4,35.0,35.88,266,287,candidate_talking,40.0,299.8,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0053,/api/thumbs/evt_0053
+evt_0054,sess_20260822_185117,S02,1,15.25,36.75,-243,294,repeated_action,25.0,865.5,0.9,critical,"4 separate events in 21s: head_turn, head_turn, head_turn",/api/clips/evt_0054,/api/thumbs/evt_0054
+evt_0055,sess_20260822_185117,S03,2,37.38,37.38,299,299,object_chit,60.0,1234.2,0.17,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.21)",/api/clips/evt_0055,/api/thumbs/evt_0055
+evt_0056,sess_20260822_185117,S04,4,36.5,37.5,275,300,head_turn,10.0,305.8,0.95,critical,"Head turned left, 4.1 deviations from own baseline, held 1.0s",/api/clips/evt_0056,/api/thumbs/evt_0056
+evt_0057,sess_20260822_185117,S03,2,37.62,37.62,301,301,object_chit,60.0,1293.6,0.19,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.24)",/api/clips/evt_0057,/api/thumbs/evt_0057
+evt_0058,sess_20260822_185117,S03,2,37.75,37.75,302,302,object_chit,60.0,1353.3,0.17,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.22)",/api/clips/evt_0058,/api/thumbs/evt_0058
+evt_0059,sess_20260822_185117,S02,1,38.75,38.75,310,310,object_chit,60.0,920.6,0.17,critical,"Prohibited paper/chit detected at S02 (on desk, conf 0.21)",/api/clips/evt_0059,/api/thumbs/evt_0059
+evt_0060,sess_20260822_185117,S04,4,28.5,39.88,35,319,repeated_action,25.0,325.1,0.9,critical,"8 separate events in 11s: candidate_talking, candidate_talking, head_turn",/api/clips/evt_0060,/api/thumbs/evt_0060
+evt_0061,sess_20260822_185117,S03,2,40.0,40.0,320,320,object_phone,100.0,1447.8,0.29,critical,"Prohibited mobile phone detected at S03 (on desk, conf 0.29)",/api/clips/evt_0061,/api/thumbs/evt_0061
+evt_0062,sess_20260822_185117,S03,2,40.0,40.0,320,320,object_phone,100.0,1547.8,0.24,critical,"Prohibited mobile phone detected at S03 (near right wrist, conf 0.24)",/api/clips/evt_0062,/api/thumbs/evt_0062
+evt_0063,sess_20260822_185117,S03,2,40.25,40.25,322,322,object_phone,100.0,1647.2,0.25,critical,"Prohibited mobile phone detected at S03 (near right wrist, conf 0.25)",/api/clips/evt_0063,/api/thumbs/evt_0063
+evt_0064,sess_20260822_185117,S02,1,39.5,40.5,299,324,head_turn,10.0,926.3,0.91,critical,"Head turned left, 3.6 deviations from own baseline, held 1.0s",/api/clips/evt_0064,/api/thumbs/evt_0064
+evt_0065,sess_20260822_185117,S03,2,40.5,40.5,324,324,object_phone,100.0,1746.6,0.25,critical,"Prohibited mobile phone detected at S03 (near right wrist, conf 0.25)",/api/clips/evt_0065,/api/thumbs/evt_0065
+evt_0066,sess_20260822_185117,S03,2,40.75,40.75,326,326,object_phone,100.0,1846.0,0.24,critical,"Prohibited mobile phone detected at S03 (near right wrist, conf 0.24)",/api/clips/evt_0066,/api/thumbs/evt_0066
+evt_0067,sess_20260822_185117,S04,4,40.0,40.88,306,327,candidate_talking,40.0,362.6,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0067,/api/thumbs/evt_0067
+evt_0068,sess_20260822_185117,S03,2,41.0,41.0,328,328,object_chit,60.0,1905.4,0.19,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.24)",/api/clips/evt_0068,/api/thumbs/evt_0068
+evt_0069,sess_20260822_185117,S03,2,41.25,41.25,330,330,object_chit,60.0,1964.8,0.17,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.22)",/api/clips/evt_0069,/api/thumbs/evt_0069

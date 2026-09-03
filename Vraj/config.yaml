@@ -65,15 +65,15 @@ rules:
     min_duration_seconds: 1.0
     cooldown_seconds: 5.0
   neighbour_reach:
-    enabled: false
+    enabled: true
     min_depth: 0.15
     min_duration_seconds: 0.8
     cooldown_seconds: 5.0
   hidden_hands:
     enabled: true
-    threshold_seconds: 8.0
-    repeat_seconds: 25.0
-    cooldown_seconds: 10.0
+    threshold_seconds: 5.0
+    repeat_seconds: 10.0
+    cooldown_seconds: 5.0
   turning_back:
     enabled: true
     span_ratio: 0.55
@@ -83,16 +83,16 @@ rules:
   repeated_action:
     enabled: true
     count: 3
-    window_seconds: 45.0
-    cooldown_seconds: 20.0
+    window_seconds: 30.0
+    cooldown_seconds: 10.0
   candidate_talking:
     enabled: true
     min_duration_seconds: 0.8
     cooldown_seconds: 4.0
   lap_gazing:
     enabled: true
-    displacement_threshold: 0.22
-    min_duration_seconds: 2.5
+    displacement_threshold: 0.35
+    min_duration_seconds: 3.0
     cooldown_seconds: 5.0
 objects:
   enabled: true
@@ -121,10 +121,10 @@ hands:
 
 # Motion Analysis Plugin (MOG2 Background Subtraction & Dense Optical Flow)
 motion:
-  enabled: false  # Modular plugin: toggle true/false at any time
+  enabled: true  # Modular plugin: toggle true/false at any time
   mode: mog2      # mog2 | optical_flow | both
-  energy_threshold: 0.35
-  velocity_spike_threshold: 60.0
+  energy_threshold: 0.30
+  velocity_spike_threshold: 45.0
   mog2_var_threshold: 16.0
   mog2_detect_shadows: false
   downsample_width: 640
@@ -132,7 +132,6 @@ motion:
 scoring:
   decay_rate: 1.5
   alert_threshold: 100
-  max_score: 150
   realert_seconds: 60
   late_exam_multiplier: 1.0
   weights:
@@ -155,6 +154,10 @@ output:
   run_dir: runs
   save_video: true
   save_report: true
+clips:
+  cooldown_seconds: 120.0
+  pre_event_seconds: 2.0
+  post_event_seconds: 3.0
 server:
   host: 127.0.0.1
   port: 8000

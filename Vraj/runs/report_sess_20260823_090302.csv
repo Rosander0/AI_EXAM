@@ -1,0 +1,6 @@
+event_id,session_id,seat_id,track_id,t_start,t_end,frame_start,frame_end,rule,points,score_after,confidence,severity,reason,clip_path,thumb_path
+evt_0001,sess_20260823_090302,S01,1,9.67,9.67,116,116,motion_spurt,20.0,20.0,0.75,warning,"Abnormal rapid motion detected at S01 (Energy: 30.0%, Velocity: 0.0px/s)",,
+evt_0002,sess_20260823_090302,S01,1,11.25,12.25,122,147,head_turn,10.0,26.1,0.9,warning,"Head turned left, 3.6 deviations from own baseline, held 1.0s",,
+evt_0003,sess_20260823_090302,S01,1,12.67,12.67,152,152,motion_spurt,20.0,45.5,0.75,warning,"Abnormal rapid motion detected at S01 (Energy: 41.0%, Velocity: 0.0px/s)",,
+evt_0004,sess_20260823_090302,S01,1,63.08,63.08,757,757,object_phone,100.0,100.0,0.47,critical,"Prohibited mobile phone detected at S01 (near left wrist, conf 0.47)",/api/clips/evt_0004,/api/thumbs/evt_0004
+evt_0005,sess_20260823_090302,S01,1,81.08,81.08,973,973,motion_spurt,20.0,100.0,0.75,critical,"Abnormal rapid motion detected at S01 (Energy: 31.3%, Velocity: 0.0px/s)",/api/clips/evt_0005,/api/thumbs/evt_0005

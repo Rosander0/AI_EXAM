@@ -3,8 +3,9 @@
 CRITICAL INVARIANTS:
 1. Extraction runs asynchronously in a background thread queue — NEVER blocks inference.
 2. Extracts [t_start - 2.0s, t_end + 3.0s] window around critical events.
-3. Saves clips to clips/{event_id}.mp4 and thumbnail to clips/{event_id}_thumb.jpg.
-4. Updates event record in SessionStore with relative clip_path and thumb_path.
+3. Enforces time-bound throttling per (seat_id, rule) to prevent duplicate clip flooding.
+4. Saves clips to clips/{event_id}.mp4 and thumbnail to clips/{event_id}_thumb.jpg.
+5. Updates event record in SessionStore with relative clip_path and thumb_path.
 """
 
 from __future__ import annotations
@@ -14,7 +15,7 @@ from pathlib import Path
 import queue
 import threading
 import time
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 import cv2
 import numpy as np
 
@@ -31,36 +32,48 @@ class ClipRequest:
 
 
 class ClipExtractor:
-    """Extracts 5-second evidence clips asynchronously."""
+    """Extracts 5-second evidence clips asynchronously with time-bound throttling."""
 
-    def __init__(self, store: Optional[SessionStore] = None, clips_dir: Path | str = "clips"):
+    def __init__(
+        self,
+        store: Optional[SessionStore] = None,
+        clips_dir: Path | str = "clips",
+        cooldown_seconds: float = 15.0,
+    ):
         self.store = store
         self.clips_dir = Path(clips_dir)
         self.clips_dir.mkdir(parents=True, exist_ok=True)
+        self.cooldown_seconds = float(cooldown_seconds)
+
+        # Per (seat_id, rule) timestamp tracking for time-bound suppression
+        self.last_clip_times: Dict[Tuple[str, str], float] = {}
 
         self._queue: queue.Queue[Optional[ClipRequest]] = queue.Queue()
         self._worker_thread = threading.Thread(target=self._worker_loop, daemon=True)
         self._worker_thread.start()
-
-        # Per-seat clip debouncing: seat_id -> last_clip_end_t
-        self.last_clip_time: Dict[str, float] = {}
-        self.min_clip_interval_s: float = 8.0
 
     def enqueue_clip(
         self,
         event: Event,
         ring_buffer: List[Tuple[float, np.ndarray]],
         fps: float = 25.0,
-    ) -> None:
-        """Enqueues a critical event's buffered frames for async video writing with debouncing."""
+        force: bool = False,
+    ) -> bool:
+        """
+        Enqueues a critical event's buffered frames for async video writing.
+        Applies time-bound throttling per (seat_id, rule) to avoid spamming duplicate clips.
+        """
         if not ring_buffer:
-            return
+            return False
 
-        # Suppress duplicate clip generation for the same candidate's continuous episode
-        last_t = self.last_clip_time.get(event.seat_id, -999.0)
-        if (event.t_end - last_t) < self.min_clip_interval_s:
-            return
-        self.last_clip_time[event.seat_id] = event.t_end
+        key = (event.seat_id, event.rule)
+        if not force and key in self.last_clip_times:
+            last_t = self.last_clip_times[key]
+            if (event.t_start - last_t) < self.cooldown_seconds:
+                # Suppress duplicate clip of the same offence type within cooldown window
+                return False
+
+        self.last_clip_times[key] = event.t_start
 
         # Copy frames from ring buffer for the async worker
         buffer_copy = [(t, img.copy()) for t, img in ring_buffer]
@@ -71,6 +84,7 @@ class ClipExtractor:
             fps=fps,
         )
         self._queue.put(req)
+        return True
 
     def _worker_loop(self) -> None:
         while True:

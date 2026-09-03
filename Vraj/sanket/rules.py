@@ -40,7 +40,6 @@ class SeatRuleState:
     seat_id: str
     last_fire_time: Dict[str, float] = field(default_factory=dict)
     active_condition_start: Dict[str, Optional[float]] = field(default_factory=dict)
-    fired_in_current_episode: Dict[str, bool] = field(default_factory=dict)
     recent_firings: List[RuleFiring] = field(default_factory=list)
 
 
@@ -70,7 +69,6 @@ class HeadTurnRule(BaseRule):
     """
     Fires when head turn deviation exceeds deviation_threshold (default 2.5 MAD)
     sustained for at least min_duration_seconds (default 1.0s).
-    Requires candidate to return to baseline before re-firing a new discrete episode.
     """
     name = "head_turn"
 
@@ -89,20 +87,15 @@ class HeadTurnRule(BaseRule):
     ) -> Optional[RuleFiring]:
         if not self.enabled or not features.valid or features.head_turn_deviation is None:
             state.active_condition_start[self.name] = None
-            state.fired_in_current_episode[self.name] = False
+            return None
+
+        # Check cooldown
+        last_t = state.last_fire_time.get(self.name, -999.0)
+        if (features.t - last_t) < self.cooldown_s:
             return None
 
         dev = features.head_turn_deviation
         if dev >= self.dev_thresh:
-            # If already fired for this continuous held movement, do not spam re-firings
-            if state.fired_in_current_episode.get(self.name, False):
-                return None
-
-            # Check cooldown
-            last_t = state.last_fire_time.get(self.name, -999.0)
-            if (features.t - last_t) < self.cooldown_s:
-                return None
-
             start_t = state.active_condition_start.get(self.name)
             if start_t is None:
                 state.active_condition_start[self.name] = features.t
@@ -112,14 +105,12 @@ class HeadTurnRule(BaseRule):
             if duration >= self.min_duration:
                 # Trigger firing
                 direction = features.head_yaw_direction or "sideways"
-                angle_str = f" {features.head_yaw_angle_deg:.0f}°" if features.head_yaw_angle_deg is not None else ""
-                reason = f"Head turned {direction}{angle_str}, {dev:.1f} deviations from own seat baseline, held {duration:.1f}s"
+                reason = f"Head turned {direction}, {dev:.1f} deviations from own baseline, held {duration:.1f}s"
                 if baseline_unavailable:
                     reason += " (baseline unavailable, global threshold used)"
 
                 state.last_fire_time[self.name] = features.t
                 state.active_condition_start[self.name] = None
-                state.fired_in_current_episode[self.name] = True
 
                 return RuleFiring(
                     rule=self.name,
@@ -134,9 +125,7 @@ class HeadTurnRule(BaseRule):
                     frame_end=frame_index,
                 )
         else:
-            # Candidate returned to baseline: re-arm the rule for the next distinct movement
             state.active_condition_start[self.name] = None
-            state.fired_in_current_episode[self.name] = False
 
         return None
 
@@ -171,9 +160,6 @@ class NeighbourReachRule(BaseRule):
         # Find max intrusion among adjacent seats
         target_seat, max_depth = max(features.neighbour_intrusion.items(), key=lambda it: it[1])
         if max_depth >= self.min_depth:
-            if state.fired_in_current_episode.get(self.name, False):
-                return None
-
             start_t = state.active_condition_start.get(self.name)
             if start_t is None:
                 state.active_condition_start[self.name] = features.t
@@ -184,7 +170,6 @@ class NeighbourReachRule(BaseRule):
                 reason = f"Wrist entered {target_seat}'s space, depth {int(max_depth * 100)}%, held {duration:.1f}s"
                 state.last_fire_time[self.name] = features.t
                 state.active_condition_start[self.name] = None
-                state.fired_in_current_episode[self.name] = True
 
                 return RuleFiring(
                     rule=self.name,
@@ -200,7 +185,6 @@ class NeighbourReachRule(BaseRule):
                 )
         else:
             state.active_condition_start[self.name] = None
-            state.fired_in_current_episode[self.name] = False
 
         return None
 
@@ -285,13 +269,6 @@ class TurningBackRule(BaseRule):
         torso_r = features.torso_rotation or 0.0
 
         if span_r <= self.span_ratio_thresh and torso_r >= self.torso_rot_thresh:
-            if state.fired_in_current_episode.get(self.name, False):
-                return None
-
-            last_t = state.last_fire_time.get(self.name, -999.0)
-            if (features.t - last_t) < self.cooldown_s:
-                return None
-
             start_t = state.active_condition_start.get(self.name)
             if start_t is None:
                 state.active_condition_start[self.name] = features.t
@@ -299,11 +276,9 @@ class TurningBackRule(BaseRule):
 
             duration = features.t - start_t
             if duration >= self.min_duration:
-                torso_str = f" ({features.torso_angle_deg:.0f}°)" if features.torso_angle_deg is not None else ""
-                reason = f"Torso rotated{torso_str} away from desk, shoulder span {int(span_r * 100)}% of own baseline, held {duration:.1f}s"
+                reason = f"Torso rotated away from desk, shoulder span {int(span_r * 100)}% of own baseline, held {duration:.1f}s"
                 state.last_fire_time[self.name] = features.t
                 state.active_condition_start[self.name] = None
-                state.fired_in_current_episode[self.name] = True
 
                 return RuleFiring(
                     rule=self.name,
@@ -319,7 +294,6 @@ class TurningBackRule(BaseRule):
                 )
         else:
             state.active_condition_start[self.name] = None
-            state.fired_in_current_episode[self.name] = False
 
         return None
 
@@ -363,9 +337,6 @@ class RepeatedActionRule(BaseRule):
             reason = f"{len(recent)} separate events in {int(window_actual)}s: {rule_summary}"
 
             state.last_fire_time[self.name] = features.t
-            # Consume the counted events so they do not continuously re-trigger repeated_action
-            state.recent_firings = [f for f in state.recent_firings if f not in recent]
-
             return RuleFiring(
                 rule=self.name,
                 points=self.points,
@@ -413,9 +384,6 @@ class CandidateTalkingRule(BaseRule):
         # Find max talking alignment
         target_sid, score = max(features.talking_targets.items(), key=lambda it: it[1])
         if score >= 0.5:
-            if state.fired_in_current_episode.get(self.name, False):
-                return None
-
             start_t = state.active_condition_start.get(self.name)
             if start_t is None:
                 state.active_condition_start[self.name] = features.t
@@ -426,7 +394,6 @@ class CandidateTalkingRule(BaseRule):
                 reason = f"Candidate turned towards {target_sid} (talking / mutual gaze observed for {duration:.1f}s)"
                 state.last_fire_time[self.name] = features.t
                 state.active_condition_start[self.name] = None
-                state.fired_in_current_episode[self.name] = True
 
                 return RuleFiring(
                     rule=self.name,
@@ -442,7 +409,6 @@ class CandidateTalkingRule(BaseRule):
                 )
         else:
             state.active_condition_start[self.name] = None
-            state.fired_in_current_episode[self.name] = False
 
         return None
 
@@ -450,7 +416,7 @@ class CandidateTalkingRule(BaseRule):
 class LapGazingRule(BaseRule):
     """
     Fires when the candidate's nose is significantly displaced from its resting position
-    (e.g., dipping down) combined with hidden hands, suggesting lap-based inspection.
+    (e.g., dipping down) combined with hidden hands, suggesting lap-based unauthorized activity.
     """
     name = "lap_gazing"
 
@@ -477,13 +443,6 @@ class LapGazingRule(BaseRule):
 
         # Check if nose is highly displaced and hands are hidden
         if features.nose_displacement >= self.disp_thresh and features.hidden_hands_duration > 0.0:
-            if state.fired_in_current_episode.get(self.name, False):
-                return None
-
-            last_t = state.last_fire_time.get(self.name, -999.0)
-            if (features.t - last_t) < self.cooldown_s:
-                return None
-
             start_t = state.active_condition_start.get(self.name)
             if start_t is None:
                 state.active_condition_start[self.name] = features.t
@@ -494,7 +453,6 @@ class LapGazingRule(BaseRule):
                 reason = f"Candidate exhibiting lap-gazing posture: head dipped down and hands hidden for {duration:.1f}s"
                 state.last_fire_time[self.name] = features.t
                 state.active_condition_start[self.name] = None
-                state.fired_in_current_episode[self.name] = True
 
                 return RuleFiring(
                     rule=self.name,
@@ -510,7 +468,6 @@ class LapGazingRule(BaseRule):
                 )
         else:
             state.active_condition_start[self.name] = None
-            state.fired_in_current_episode[self.name] = False
 
         return None
 

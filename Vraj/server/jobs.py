@@ -139,7 +139,11 @@ class JobRunner:
             current_fps = src.fps
             last_timeline_sample_t = -999.0
 
-            clip_extractor = ClipExtractor(store=self.store, clips_dir="clips")
+            clip_extractor = ClipExtractor(
+                store=self.store,
+                clips_dir="clips",
+                cooldown_seconds=cfg.get("clips", {}).get("cooldown_seconds", 15.0),
+            )
             ring_buffer: deque[tuple[float, np.ndarray]] = deque(maxlen=90)
 
             with src:

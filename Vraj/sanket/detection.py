@@ -73,10 +73,6 @@ class ObjectDetector:
         self.total_chits_checked: int = 0
         self.total_chits_filtered: int = 0
 
-        # Episode debouncing & cooldown per (seat_id, rule_name) to avoid repeating video/event creation
-        self.last_object_fire_time: Dict[Tuple[str, str], float] = {}
-        self.object_cooldown_seconds: float = 15.0
-
     def detect_and_evaluate(
         self,
         frame_image: np.ndarray,
@@ -176,6 +172,11 @@ class ObjectDetector:
             is_chit = any(alias in cls_lower for alias in CHIT_ALIASES)
             is_smartwatch = any(alias in cls_lower for alias in WATCH_ALIASES)
             is_earbud = any(alias in cls_lower for alias in EARBUD_ALIASES)
+            is_watched = any(wc in cls_lower for wc in self.watch_classes)
+
+            # Skip irrelevant background objects (e.g., bottle, cup, chair) if they aren't explicitly watched or prohibited
+            if not (is_phone or is_chit or is_smartwatch or is_earbud or is_watched):
+                continue
 
             if is_phone:
                 if not self._filter_phone_geometry(box, person_obj):
@@ -219,23 +220,8 @@ class ObjectDetector:
                     authorized = True
                     label = f"approved_{cls_name}"
 
-            # 4. Generate Rule Firings for Unauthorized Items (with Episode Debouncing)
+            # 4. Generate Rule Firings for Unauthorized Items
             if not authorized:
-                rule_name = (
-                    "object_phone" if is_phone else
-                    "object_chit" if is_chit else
-                    "object_smartwatch" if is_smartwatch else
-                    "object_earbuds" if is_earbud else
-                    "object_unregistered"
-                )
-
-                fire_key = (assoc_sid, rule_name)
-                last_t = self.last_object_fire_time.get(fire_key, -999.0)
-                if (t - last_t) < self.object_cooldown_seconds:
-                    # Debounced: Candidate is in an ongoing episode; prevent duplicate alerts and clips
-                    continue
-                self.last_object_fire_time[fire_key] = t
-
                 wrist_desc = f"near {assoc_wrist} wrist" if assoc_wrist != "body" else "on desk"
                 if is_phone:
                     reason = f"Prohibited mobile phone detected at {assoc_sid} ({wrist_desc}, conf {b_conf:.2f})"
@@ -400,24 +386,12 @@ class ObjectDetector:
         return best_sid, best_wrist, best_person
 
     def _filter_phone_geometry(self, obj_box: Tuple[float, float, float, float], person: Person) -> bool:
-        """Filters out huge background objects, wall windows, and non-phone scale boxes."""
+        """Filters out non-phone scale boxes. Relaxed for close-up videos."""
         ow = max(1.0, obj_box[2] - obj_box[0])
         oh = max(1.0, obj_box[3] - obj_box[1])
-        obj_area = ow * oh
-
-        # 1. Absolute pixel size check (phones in CCTV are never > 25,000 px^2; glass windows on walls are 100,000+ px^2)
-        if obj_area > self.phone_max_abs_pixels:
-            return False
-
-        # 2. Relative area check (phone is small relative to candidate body, < 8%)
-        p_area = person.bbox_area()
-        if p_area > 0:
-            area_ratio = obj_area / p_area
-            if area_ratio > self.phone_max_area_ratio:
-                return False
-
-        # 3. Aspect ratio check for smartphones (portrait or landscape)
-        # Relaxed to 0.1 - 10.0 to catch slivers of occluded phones
+        
+        # Aspect ratio check for smartphones (portrait or landscape)
+        # Extremely relaxed to 0.1 - 10.0 to catch slivers of occluded phones
         aspect = ow / oh
         if not (0.1 <= aspect <= 10.0):
             return False

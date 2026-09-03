@@ -159,14 +159,9 @@ function App() {
     }
   };
 
-  const handleStop = async () => {
+  const handleStop = () => {
     if (pollTimerRef.current) clearInterval(pollTimerRef.current);
     if (timelineTimerRef.current) clearInterval(timelineTimerRef.current);
-    if (session) {
-      try {
-        await fetch(`/api/sessions/${session.session_id}/stop`, { method: "POST" });
-      } catch (e) {}
-    }
     setSession(null);
     setSelectedSeatId(null);
   };

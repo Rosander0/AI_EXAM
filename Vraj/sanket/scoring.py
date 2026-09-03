@@ -54,16 +54,17 @@ class ScoringEngine:
         score_cfg = config.get("scoring", {})
         self.decay_rate = float(score_cfg.get("decay_rate", 1.5))
         self.alert_thresh = float(score_cfg.get("alert_threshold", 100.0))
-        self.max_score = float(score_cfg.get("max_score", 150.0))
         self.realert_s = float(score_cfg.get("realert_seconds", 60.0))
         self.late_multiplier = float(score_cfg.get("late_exam_multiplier", 1.0))
         self.weights: Dict[str, float] = score_cfg.get("weights", {})
 
+        self.alert_cooldown_s = float(score_cfg.get("alert_cooldown_seconds", 15.0))
         self.last_t: Optional[float] = None
         self.event_counter: int = 0
 
         # Per-seat metadata: seat_id -> dict
         self.last_alert_t: Dict[str, float] = {}
+        self.last_alert_by_seat_rule: Dict[tuple[str, str], float] = {}
         self.distinct_rules_set: Dict[str, Set[str]] = {}
 
     def update(
@@ -74,7 +75,7 @@ class ScoringEngine:
     ) -> List[Event]:
         """
         Applies time decay, adds rule firing points, updates sustained duration,
-        and generates Event instances.
+        and generates Event instances with time-bound throttling.
         """
         # Calculate dt strictly from Frame.t
         if self.last_t is None:
@@ -92,7 +93,8 @@ class ScoringEngine:
             prev_score = seat.score
 
             # 1. Apply Continuous Decay: S = max(0, S - D * dt)
-            if dt > 0 and seat.score > 0:
+            # If a candidate hits the alert threshold (100), they are Disqualified. Do not let them decay back to "safe".
+            if dt > 0 and 0 < seat.score < self.alert_thresh:
                 decay_amount = self.decay_rate * dt
                 seat.score = max(0.0, seat.score - decay_amount)
 
@@ -101,21 +103,34 @@ class ScoringEngine:
             points_added = 0.0
 
             for firing in seat_firings:
+                rule_key = (sid, firing.rule)
+                # Enforce a strict 3-second cooldown per rule per seat to prevent frame-wise spam from YOLO/MediaPipe
+                last_event_t = self.last_alert_by_seat_rule.get(rule_key + ('_event',), -999.0)
+                if (t - last_event_t) < 3.0:
+                    continue
+                self.last_alert_by_seat_rule[rule_key + ('_event',)] = t
+
                 weight = self.weights.get(firing.rule, firing.points)
                 pts = weight * self.late_multiplier
                 points_added += pts
-                seat.score = min(self.max_score, seat.score + pts)
+                seat.score = min(100.0, seat.score + pts)
                 seat.event_count += 1
                 self.distinct_rules_set[sid].add(firing.rule)
                 seat.distinct_rules = len(self.distinct_rules_set[sid])
                 seat.last_reason = firing.reason
 
-                # Determine Event severity
+                # Determine Event severity with time-bound throttling
                 is_instant_alert = firing.rule in ("object_phone", "object_chit")
-                crossed_threshold = seat.score >= self.alert_thresh
+                crossed_threshold = prev_score < self.alert_thresh and seat.score >= self.alert_thresh
 
-                if is_instant_alert or crossed_threshold:
+                rule_key = (sid, firing.rule)
+                last_alert_time = self.last_alert_by_seat_rule.get(rule_key, -999.0)
+                cooldown_elapsed = (t - last_alert_time) >= self.alert_cooldown_s
+
+                if is_instant_alert or crossed_threshold or (seat.score >= self.alert_thresh and cooldown_elapsed):
                     severity = "critical"
+                    self.last_alert_by_seat_rule[rule_key] = t
+                    self.last_alert_t[sid] = t
                 else:
                     severity = "warning"
 

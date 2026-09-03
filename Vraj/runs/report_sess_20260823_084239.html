@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANKET Invigilation Session Report — sess_20260823_084239</title>
+    <style>
+        :root {
+            --ink: #0F1B2D;
+            --panel: #16263C;
+            --line: #24384F;
+            --text: #E8EDF3;
+            --muted: #7C8FA6;
+            --calm: #3E7A5E;
+            --accum: #C8873A;
+            --alert: #C4453D;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--ink);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            padding: 32px 24px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .header-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: #FFFFFF; }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .meta-item { font-size: 13px; }
+        .meta-label { color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+        .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+        .font-bold { font-weight: 700; }
+        .text-accent { color: #F0B429; }
+        .text-muted { color: var(--muted); font-size: 13px; }
+        .text-sm { font-size: 12px; color: var(--muted); }
+        
+        .section-card {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .section-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        th {
+            background: #111E2E;
+            color: var(--muted);
+            text-align: left;
+            padding: 10px 12px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--line);
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--line);
+        }
+        .event-cell {
+            background: #132033;
+            padding: 8px 16px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-calm { background: rgba(62, 122, 94, 0.25); color: #4EBB8B; border: 1px solid var(--calm); }
+        .badge-accum { background: rgba(200, 135, 58, 0.25); color: #F7B955; border: 1px solid var(--accum); }
+        .badge-alert { background: rgba(196, 69, 61, 0.25); color: #FF6B6B; border: 1px solid var(--alert); }
+        
+        .event-details summary {
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 12px;
+            padding: 4px 0;
+            user-select: none;
+        }
+        .event-details ul {
+            list-style: none;
+            padding: 8px 0 4px 0;
+        }
+        .event-details li {
+            font-size: 12px;
+            margin-bottom: 6px;
+            padding-left: 8px;
+            border-left: 2px solid var(--line);
+        }
+        .ev-critical { border-left-color: var(--alert) !important; }
+        .ev-warning { border-left-color: var(--accum) !important; }
+        .rule-tag { color: #79B8FF; font-weight: 600; }
+        .clip-link { color: #58A6FF; text-decoration: none; margin-left: 8px; font-weight: 600; }
+        .clip-link:hover { text-decoration: underline; }
+        
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--muted);
+            font-size: 12px;
+            border-top: 1px solid var(--line);
+            margin-top: 32px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-title">SANKET — Examination Behaviour Analytics Report</div>
+            <p class="text-muted">Automated behavioral analysis and observation event log for human invigilator review.</p>
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="meta-label">Session ID</div>
+                    <div class="mono">sess_20260823_084239</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Source Feed</div>
+                    <div class="mono">datasets/uploads/04.CCTV Candidate Talking.mp4</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Coverage Duration</div>
+                    <div class="mono">143.3s (2.39 min)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Total Events / Alerts</div>
+                    <div class="mono">99 events (80 critical)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Config Hash</div>
+                    <div class="mono">8ae6c5</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">Seats of Interest (Ranked by Sustained Alert Duration)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Seat</th>
+                        <th>Status</th>
+                        <th>Sustained Alert</th>
+                        <th>Current Score</th>
+                        <th>Peak Score</th>
+                        <th>Events</th>
+                        <th>Distinct Rules</th>
+                        <th>Calibration</th>
+                        <th>Approved Items</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td class="mono font-bold">S04</td>
+            <td><span class="badge badge-accum">ACCUMULATING</span></td>
+            <td class="mono font-bold text-accent">4.8s</td>
+            <td class="mono">96.8</td>
+            <td class="mono">100.0</td>
+            <td class="mono">74</td>
+            <td class="mono">6</td>
+            <td><span class="text-sm">Calibrated</span></td>
+            <td><span class="text-sm">None</span></td>
+        </tr>
+        <tr>
+            <td colspan="9" class="event-cell"><details class='event-details'><summary>74 Recorded Events</summary><ul>
+                <li class="ev-warning">
+                    <strong>[4.1s - 5.0s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[8.8s - 8.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:08, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[9.0s - 9.9s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) <a class='clip-link' href='/api/clips/evt_0005' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[13.0s - 13.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:13, not present during calibration <a class='clip-link' href='/api/clips/evt_0008' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[13.9s - 14.8s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[4.1s - 14.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    3 separate events in 10s: candidate_talking, candidate_talking, candidate_talking <a class='clip-link' href='/api/clips/evt_0010' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[18.0s - 18.0s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 30.2%, Velocity: 0.0px/s) <a class='clip-link' href='/api/clips/evt_0011' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[19.5s - 19.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:19, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[18.8s - 19.6s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[21.0s - 21.0s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 30.4%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[24.0s - 24.0s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 44.9%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[23.6s - 24.5s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[13.9s - 24.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    5 separate events in 10s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[25.5s - 25.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:25, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[25.1s - 26.1s]</strong>
+                    <span class="rule-tag">head_turn (+10 pts)</span>:
+                    Head turned left, 5.9 deviations from own baseline, held 1.0s <a class='clip-link' href='/api/clips/evt_0022' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[27.5s - 27.5s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S04 (Energy: 30.7%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[28.5s - 28.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:28, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[28.5s - 29.4s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[32.0s - 32.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:32, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[23.6s - 34.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    7 separate events in 11s: candidate_talking, head_turn, candidate_talking 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[35.0s - 35.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:35, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[35.0s - 35.9s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[40.0s - 40.9s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[42.5s - 42.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:42, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[28.5s - 44.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 16s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[48.0s - 48.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 00:48, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[48.0s - 48.9s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[53.8s - 54.6s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[40.0s - 54.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 14s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[59.0s - 59.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 00:59, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[58.6s - 59.5s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[62.0s - 62.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 01:02, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[63.5s - 64.4s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[53.8s - 64.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 11s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[68.4s - 69.3s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[73.3s - 74.1s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[63.5s - 74.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 11s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[78.1s - 79.0s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[83.0s - 83.9s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[73.3s - 84.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 11s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[87.9s - 88.8s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[90.5s - 90.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:30, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[92.8s - 93.7s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[94.0s - 94.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:34, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[83.0s - 94.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 11s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[97.8s - 97.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:37, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[97.7s - 98.5s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S03 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[101.0s - 101.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:41, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[102.5s - 103.4s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[92.8s - 104.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 12s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[106.3s - 106.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (dining table) appeared at S04 at 01:46, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[107.4s - 108.3s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S03 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[110.8s - 110.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (backpack) appeared at S04 at 01:50, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[112.3s - 113.2s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S03 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[102.5s - 114.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 12s: candidate_talking, candidate_talking, candidate_talking 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[116.0s - 116.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 01:56, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[120.5s - 121.4s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[122.0s - 122.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (backpack) appeared at S04 at 02:02, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[123.7s - 124.7s]</strong>
+                    <span class="rule-tag">head_turn (+10 pts)</span>:
+                    Head turned left, 3.4 deviations from own baseline, held 1.0s 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[112.3s - 124.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    6 separate events in 12s: candidate_talking, candidate_talking, head_turn 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[125.0s - 125.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:05, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[125.4s - 126.3s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[128.0s - 128.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:08, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[131.0s - 131.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:11, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[130.3s - 131.2s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[130.8s - 131.8s]</strong>
+                    <span class="rule-tag">head_turn (+10 pts)</span>:
+                    Head turned left, 3.9 deviations from own baseline, held 1.0s 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[134.0s - 134.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:14, not present during calibration <a class='clip-link' href='/api/clips/evt_0092' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[125.4s - 134.8s]</strong>
+                    <span class="rule-tag">repeated_action (+25 pts)</span>:
+                    7 separate events in 9s: candidate_talking, candidate_talking, head_turn <a class='clip-link' href='/api/clips/evt_0093' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[135.2s - 136.0s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) <a class='clip-link' href='/api/clips/evt_0094' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[137.0s - 137.0s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.46) <a class='clip-link' href='/api/clips/evt_0095' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[138.0s - 138.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (chair) appeared at S04 at 02:18, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[140.0s - 140.0s]</strong>
+                    <span class="rule-tag">object_phone (+100 pts)</span>:
+                    Prohibited mobile phone detected at S04 (near right wrist, conf 0.44) 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[140.0s - 140.9s]</strong>
+                    <span class="rule-tag">candidate_talking (+40 pts)</span>:
+                    Candidate turned towards S02 (talking / mutual gaze observed for 0.9s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[141.0s - 141.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (bottle) appeared at S04 at 02:21, not present during calibration 
+                </li>
+                </ul></details></td>
+        </tr>
+        
+        <tr>
+            <td class="mono font-bold">S05</td>
+            <td><span class="badge badge-accum">ACCUMULATING</span></td>
+            <td class="mono font-bold text-accent">0.5s</td>
+            <td class="mono">83.3</td>
+            <td class="mono">100.0</td>
+            <td class="mono">13</td>
+            <td class="mono">2</td>
+            <td><span class="text-sm">Failed / Uncalibrated</span></td>
+            <td><span class="text-sm">None</span></td>
+        </tr>
+        <tr>
+            <td colspan="9" class="event-cell"><details class='event-details'><summary>13 Recorded Events</summary><ul>
+                <li class="ev-warning">
+                    <strong>[3.0s - 9.0s]</strong>
+                    <span class="rule-tag">hidden_hands (+15 pts)</span>:
+                    Both wrists not visible for 6.0s 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[21.0s - 21.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 00:21, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[39.8s - 39.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 00:39, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[46.5s - 46.5s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 00:46, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[64.0s - 64.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 01:04, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[71.8s - 71.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:11, not present during calibration <a class='clip-link' href='/api/clips/evt_0048' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[82.8s - 82.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 01:22, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[89.0s - 89.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:29, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[92.3s - 92.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:32, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[100.3s - 100.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 01:40, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[125.0s - 125.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:05, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[129.0s - 129.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S05 at 02:09, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[132.0s - 132.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (laptop) appeared at S05 at 02:12, not present during calibration 
+                </li>
+                </ul></details></td>
+        </tr>
+        
+        <tr>
+            <td class="mono font-bold">S03</td>
+            <td><span class="badge badge-accum">ACCUMULATING</span></td>
+            <td class="mono font-bold text-accent">0.3s</td>
+            <td class="mono">40.2</td>
+            <td class="mono">100.0</td>
+            <td class="mono">9</td>
+            <td class="mono">3</td>
+            <td><span class="text-sm">Failed / Uncalibrated</span></td>
+            <td><span class="text-sm">None</span></td>
+        </tr>
+        <tr>
+            <td colspan="9" class="event-cell"><details class='event-details'><summary>9 Recorded Events</summary><ul>
+                <li class="ev-warning">
+                    <strong>[8.5s - 8.5s]</strong>
+                    <span class="rule-tag">motion_spurt (+20 pts)</span>:
+                    Abnormal rapid motion detected at S03 (Energy: 30.5%, Velocity: 0.0px/s) 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[10.8s - 10.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:10, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[20.0s - 20.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:20, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[24.3s - 24.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:24, not present during calibration <a class='clip-link' href='/api/clips/evt_0018' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[33.3s - 33.3s]</strong>
+                    <span class="rule-tag">object_chit (+60 pts)</span>:
+                    Prohibited paper/chit detected at S03 (on desk, conf 0.36) <a class='clip-link' href='/api/clips/evt_0027' target='_blank'>View Clip</a>
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[45.8s - 45.8s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 00:45, not present during calibration 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[74.0s - 74.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 01:14, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[83.0s - 83.0s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 01:23, not present during calibration 
+                </li>
+                
+                <li class="ev-critical">
+                    <strong>[103.3s - 103.3s]</strong>
+                    <span class="rule-tag">object_unregistered (+40 pts)</span>:
+                    Unregistered object (mouse) appeared at S03 at 01:43, not present during calibration 
+                </li>
+                </ul></details></td>
+        </tr>
+        
+        <tr>
+            <td class="mono font-bold">S01</td>
+            <td><span class="badge badge-calm">CALM</span></td>
+            <td class="mono font-bold text-accent">0.0s</td>
+            <td class="mono">0.0</td>
+            <td class="mono">0.0</td>
+            <td class="mono">0</td>
+            <td class="mono">0</td>
+            <td><span class="text-sm">Failed / Uncalibrated</span></td>
+            <td><span class="text-sm">None</span></td>
+        </tr>
+        <tr>
+            <td colspan="9" class="event-cell"><span class='text-muted'>No rule events recorded</span></td>
+        </tr>
+        
+        <tr>
+            <td class="mono font-bold">S02</td>
+            <td><span class="badge badge-calm">CALM</span></td>
+            <td class="mono font-bold text-accent">0.0s</td>
+            <td class="mono">0.0</td>
+            <td class="mono">10.0</td>
+            <td class="mono">3</td>
+            <td class="mono">1</td>
+            <td><span class="text-sm">Calibrated</span></td>
+            <td><span class="text-sm">None</span></td>
+        </tr>
+        <tr>
+            <td colspan="9" class="event-cell"><details class='event-details'><summary>3 Recorded Events</summary><ul>
+                <li class="ev-warning">
+                    <strong>[9.2s - 10.2s]</strong>
+                    <span class="rule-tag">head_turn (+10 pts)</span>:
+                    Head turned left, 2.6 deviations from own baseline, held 1.0s 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[71.4s - 72.4s]</strong>
+                    <span class="rule-tag">head_turn (+10 pts)</span>:
+                    Head turned left, 4.3 deviations from own baseline, held 1.0s 
+                </li>
+                
+                <li class="ev-warning">
+                    <strong>[98.0s - 99.0s]</strong>
+                    <span class="rule-tag">head_turn (+10 pts)</span>:
+                    Head turned left, 3.4 deviations from own baseline, held 1.0s 
+                </li>
+                </ul></details></td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">Stream Integrity & Coverage Gaps</div>
+            <p class='text-muted'>No stream interruptions recorded. Continuous coverage verified.</p>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">Staff Invigilation Supervision & Attention Distribution</div>
+            <p class='text-muted'>No roving invigilation staff active in this session.</p>
+        </div>
+
+        <div class="footer">
+            <p><strong>Notice to Invigilators & Center Supervisors:</strong> Candidate alerts and staff observations are automated behavioral analytics for human review and do not constitute determinations or allegations of misconduct.</p>
+            <p style="margin-top: 4px;">Generated by SANKET Invigilation Assistant &middot; Zero biometric storage regime.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -31,10 +31,8 @@ class SeatFeatures:
     t: float
     head_turn_deviation: Optional[float] = None     # Normalized deviation from this seat's baseline
     head_yaw_direction: Optional[str] = None       # "left" | "right" | "centre"
-    head_yaw_angle_deg: Optional[float] = None     # Estimated physical head yaw angle in degrees
     shoulder_span_ratio: Optional[float] = None    # current / calibrated baseline span
     torso_rotation: Optional[float] = None         # proxy for turning away from desk (0.0 to 1.0)
-    torso_angle_deg: Optional[float] = None        # Shoulder plane angle relative to desk
     wrist_visibility: Tuple[bool, bool] = (False, False)  # (left_visible, right_visible)
     hidden_hands_duration: float = 0.0             # Continuous seconds both wrists below min_conf
     neighbour_intrusion: Dict[str, float] = field(default_factory=dict)  # neighbour_seat_id -> intrusion depth fraction
@@ -242,26 +240,13 @@ class FeatureExtractor:
             smoothed_torso_rot = self._smooth_metric(sid, "torso_rotation", t, torso_rot)
             smoothed_nose_disp = self._smooth_metric(sid, "nose_displacement", t, nose_disp)
 
-            # 9. Compute Physical Viewing Angle Estimates in Degrees
-            head_yaw_angle = None
-            if smoothed_head_dev is not None and smoothed_head_dev > 0:
-                head_yaw_angle = float(np.clip(smoothed_head_dev * 13.5, 12.0, 85.0))
-
-            torso_angle = None
-            if curr_span is not None and person.kp_visible(KP.LEFT_SHOULDER) and person.kp_visible(KP.RIGHT_SHOULDER):
-                lx, ly, _ = person.kp(KP.LEFT_SHOULDER)
-                rx, ry, _ = person.kp(KP.RIGHT_SHOULDER)
-                torso_angle = float(abs(math.degrees(math.atan2(ry - ly, rx - lx))))
-
             results[sid] = SeatFeatures(
                 seat_id=sid,
                 t=t,
                 head_turn_deviation=smoothed_head_dev,
                 head_yaw_direction=yaw_dir,
-                head_yaw_angle_deg=head_yaw_angle,
                 shoulder_span_ratio=smoothed_span_ratio,
                 torso_rotation=smoothed_torso_rot,
-                torso_angle_deg=torso_angle,
                 wrist_visibility=(lw_vis, rw_vis),
                 hidden_hands_duration=hidden_duration,
                 neighbour_intrusion=neighbour_intrusions,

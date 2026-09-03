@@ -160,14 +160,9 @@ function App() {
     }
   };
 
-  const handleStop = async () => {
+  const handleStop = () => {
     if (pollTimerRef.current) clearInterval(pollTimerRef.current);
     if (timelineTimerRef.current) clearInterval(timelineTimerRef.current);
-    if (activeSessionId) {
-      try {
-        await fetch(`/api/sessions/${activeSessionId}/stop`, { method: "POST" });
-      } catch (e) {}
-    }
   };
 
   const filteredEvents = useMemo(() => {
@@ -591,27 +586,7 @@ function SeatGrid({ seats, selectedSeatId, onSelectSeat, prevScores }) {
             !seat.calibrated &&
               h("span", { style: { fontSize: "9px", color: "var(--status-accum)", marginLeft: "4px" } }, "[CALIB]")
           ),
-          h(
-            "div",
-            { style: { display: "flex", alignItems: "center", gap: "6px" } },
-            h(
-              "span",
-              {
-                className: "mono",
-                style: {
-                  fontSize: "10px",
-                  padding: "1px 4px",
-                  borderRadius: "3px",
-                  background: "rgba(20, 184, 166, 0.15)",
-                  color: "#14b8a6",
-                  border: "1px solid rgba(20, 184, 166, 0.25)",
-                  fontWeight: "bold",
-                },
-              },
-              `${Math.round((seat.confidence || (seat.score > 0 ? 0.93 : 0.96)) * 100)}% Conf`
-            ),
-            h("span", { className: "seat-tile-score mono" }, `${seat.score.toFixed(1)} pts`)
-          )
+          h("span", { className: "seat-tile-score mono" }, seat.score.toFixed(1))
         ),
         seat.sustained_seconds > 0 &&
           h(
@@ -642,27 +617,7 @@ function AlertFeed({ events, onViewClip }) {
       h(
         "div",
         { className: "event-top-row" },
-        h(
-          "div",
-          { style: { display: "flex", alignItems: "center", gap: "6px" } },
-          h("span", { className: "event-seat-badge mono" }, ev.seat_id),
-          h(
-            "span",
-            {
-              className: "mono",
-              style: {
-                fontSize: "10px",
-                padding: "2px 5px",
-                borderRadius: "3px",
-                background: "rgba(20, 184, 166, 0.15)",
-                color: "#14b8a6",
-                border: "1px solid rgba(20, 184, 166, 0.25)",
-                fontWeight: "bold",
-              },
-            },
-            `${Math.round((ev.confidence || 0.88) * 100)}% Conf`
-          )
-        ),
+        h("span", { className: "event-seat-badge mono" }, ev.seat_id),
         h(
           "span",
           { className: "event-timestamp mono" },

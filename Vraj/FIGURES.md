@@ -64,32 +64,25 @@ This document is the authoritative source of truth for all quantitative metrics 
 ## 6. Long-Session Benchmark (`CAMERA#.mp4` — 100-Minute Exam Session)
 
 - **Source Dataset File**: `DRISHTI AI DEXIT GLobal Datasets/CAMERA#.mp4`
-- **Evaluation Artifact**: `runs/long_eval_sess_long_eval_20260823_014844.json`
+- **Evaluation Artifact**: `runs/long_eval_sess_long_eval_20260822_194916.json`
 - **Ground Truth Labels**: `datasets/labels/CAMERA#.json` (11 hand-labelled behavioural events)
 - **Session Duration Evaluated**: 100.0 minutes (6,000.0 s | 128,613 frames | 1.67 hours)
-- **Processing Throughput**: 93.6 FPS (CPU execution)
+- **Processing Throughput**: 29.9 FPS (CPU execution)
 - **Seat Mapping**: S1 $\to$ S01 (Center Desk), S3 $\to$ S02 (Top-Right Desk), S4 $\to$ S03 (Bottom-Left Desk)
 
 ### Metric Summary:
-| Metric | Measurement (Post-Decay Fix) | Baseline (Broken Accumulator) | Delta / Notes |
-| :--- | :--- | :--- | :--- |
-| **Total Labelled Events** | **11** | 11 | Full hand-labelled set |
-| **Real Recall (Caught + Caught Weak)** | **45.5%** (5/11) | 63.6% (7/11) | Real signal without broken accumulator inflation |
-| **Time-Shifted Null Recall (Chance)**| **10.0%** (1/11) | 40.0% (4.4/11) | 10-shift Monte Carlo average (+120s to +1200s) |
-| **Signal-to-Noise Gap** | **+35.5 points** | +23.6 points | **+11.9 pt wider genuine signal gap** |
-| **Outside-Window Firings** | **69 events (41.4 FA/hr)** | 1,302 events (781.2 FA/hr) | **94.7% noise reduction** |
-| **S02 Peak Score** | **34.6 pts** | 27,964.4 pts | Score decays smoothly to 0.0 between episodes |
-| **S02 Time in False Alarm** | **0.0 seconds (0.0%)** | 6,720.0s (112.0%) | Completely eliminated runaway alarm state |
-| **S01 Peak Score** | **51.8 pts** | N/A | Normal decay between episodes |
-
-### Per-Seat Recall Breakdown:
-- **S01 (Center Desk — S1)**: 6 labels $\to$ **33.3% recall** (2 Caught Weak, 4 Flat, 0 Structural).
-- **S02 (Top-Right Desk — S3)**: 5 labels $\to$ **60.0% recall** (3 Caught Weak, 1 Near, 1 Flat, 0 Structural).
-
-### Miss Classification:
-- **STRUCTURAL (0)**: Calibration succeeded cleanly on all seats.
-- **FLAT (5)**: Sub-threshold glances (55:56, 1:24, 1:39), desk departure (33:02), and turn around (57:54).
-- **NEAR (1)**: S3 look right at 33:02 ($2.1\text{ MAD}$, held $0.7\text{s}$). Only this is tunable.
+| Metric | Measurement | Notes / Status |
+| :--- | :--- | :--- |
+| **Total Labelled Events** | **11** | Full hand-labelled set |
+| **Caught Events (Alert $\ge 100$)** | **5** (45.5%) | All 3 sustained phone usage episodes + 2 looking side events caught |
+| **Caught Weak (Points Scored)** | **2** (18.2%) | Looking back (13:45) and looking side (20:55) |
+| **Near Misses (Tunable)** | **0** (0.0%) | No feature crossed threshold without sufficient duration |
+| **Flat Misses (Sub-threshold)** | **4** (36.4%) | 1 standing/leaving (vacating), 1 turn around, 2 sub-2s glances |
+| **Structural Misses** | **0** (0.0%) | Calibration completed cleanly for all seats |
+| **Seat Rebind Stability** | S01: 15 rebinds, S02: 11 rebinds | Identity anchored to seat; state preserved across all rebinds |
+| **Sustained Phone Compounding** | Peak Score: **27,964.4 pts** | Episodes at 1:16, 1:31, 1:35 compound through score accumulation + decay |
+| **High-Score Drift Freeze** | **100% Effective** | S02 baseline frozen above score 30; phone posture never absorbed into baseline |
+| **Outside-Window Firings** | **781.2 events/hr** | 1,302 events (predominantly S3 continuous talking & reaching towards S1) |
 
 ---
 

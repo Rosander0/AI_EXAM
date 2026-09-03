@@ -1,0 +1,53 @@
+event_id,session_id,seat_id,track_id,t_start,t_end,frame_start,frame_end,rule,points,score_after,confidence,severity,reason,clip_path,thumb_path
+evt_0001,sess_20260823_084003,S04,4,4.13,5.0,19,40,candidate_talking,40.0,40.0,0.85,warning,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0002,sess_20260823_084003,S03,5,8.5,8.5,68,68,motion_spurt,20.0,20.0,0.75,warning,"Abnormal rapid motion detected at S03 (Energy: 30.5%, Velocity: 0.0px/s)",,
+evt_0003,sess_20260823_084003,S04,4,8.75,8.75,70,70,object_unregistered,40.0,74.4,0.3,warning,"Unregistered object (bottle) appeared at S04 at 00:08, not present during calibration",,
+evt_0004,sess_20260823_084003,S05,3,3.0,9.0,-78,72,hidden_hands,15.0,15.0,0.75,warning,Both wrists not visible for 6.0s,,
+evt_0005,sess_20260823_084003,S04,4,9.0,9.88,58,79,candidate_talking,40.0,100.0,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),/api/clips/evt_0005,/api/thumbs/evt_0005
+evt_0006,sess_20260823_084003,S02,1,9.25,10.25,57,82,head_turn,10.0,10.0,0.64,warning,"Head turned left, 2.6 deviations from own baseline, held 1.0s",,
+evt_0007,sess_20260823_084003,S03,5,10.75,10.75,86,86,object_unregistered,40.0,56.6,0.65,warning,"Unregistered object (mouse) appeared at S03 at 00:10, not present during calibration",,
+evt_0008,sess_20260823_084003,S04,4,13.0,13.0,104,104,object_unregistered,40.0,100.0,0.35,critical,"Unregistered object (bottle) appeared at S04 at 00:13, not present during calibration",/api/clips/evt_0008,/api/thumbs/evt_0008
+evt_0009,sess_20260823_084003,S04,4,13.88,14.75,97,118,candidate_talking,40.0,100.0,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0010,sess_20260823_084003,S04,4,4.13,14.75,-147,118,repeated_action,25.0,100.0,0.9,critical,"3 separate events in 10s: candidate_talking, candidate_talking, candidate_talking",/api/clips/evt_0010,/api/thumbs/evt_0010
+evt_0011,sess_20260823_084003,S04,4,18.0,18.0,144,144,motion_spurt,20.0,100.0,0.75,critical,"Abnormal rapid motion detected at S04 (Energy: 30.2%, Velocity: 0.0px/s)",/api/clips/evt_0011,/api/thumbs/evt_0011
+evt_0012,sess_20260823_084003,S04,4,19.5,19.5,156,156,object_unregistered,40.0,100.0,0.71,critical,"Unregistered object (chair) appeared at S04 at 00:19, not present during calibration",,
+evt_0013,sess_20260823_084003,S04,4,18.75,19.63,136,157,candidate_talking,40.0,100.0,0.85,warning,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0014,sess_20260823_084003,S03,5,20.0,20.0,160,160,object_unregistered,40.0,82.7,0.55,warning,"Unregistered object (mouse) appeared at S03 at 00:20, not present during calibration",,
+evt_0015,sess_20260823_084003,S04,4,21.01,21.01,168,168,motion_spurt,20.0,100.0,0.75,critical,"Abnormal rapid motion detected at S04 (Energy: 30.4%, Velocity: 0.0px/s)",,
+evt_0016,sess_20260823_084003,S05,8,21.01,21.01,168,168,object_unregistered,40.0,40.0,0.64,warning,"Unregistered object (mouse) appeared at S05 at 00:21, not present during calibration",,
+evt_0017,sess_20260823_084003,S04,4,24.01,24.01,192,192,motion_spurt,20.0,100.0,0.75,critical,"Abnormal rapid motion detected at S04 (Energy: 44.9%, Velocity: 0.0px/s)",,
+evt_0018,sess_20260823_084003,S03,5,24.26,24.26,194,194,object_unregistered,40.0,100.0,0.58,critical,"Unregistered object (mouse) appeared at S03 at 00:24, not present during calibration",/api/clips/evt_0018,/api/thumbs/evt_0018
+evt_0019,sess_20260823_084003,S04,4,23.63,24.51,175,196,candidate_talking,40.0,100.0,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0020,sess_20260823_084003,S04,4,13.88,24.76,-73,198,repeated_action,25.0,100.0,0.9,critical,"5 separate events in 10s: candidate_talking, candidate_talking, candidate_talking",,
+evt_0021,sess_20260823_084003,S04,4,25.51,25.51,204,204,object_unregistered,40.0,100.0,0.4,critical,"Unregistered object (chair) appeared at S04 at 00:25, not present during calibration",,
+evt_0022,sess_20260823_084003,S04,4,25.13,26.13,184,209,head_turn,10.0,100.0,0.95,critical,"Head turned left, 5.9 deviations from own baseline, held 1.0s",/api/clips/evt_0022,/api/thumbs/evt_0022
+evt_0023,sess_20260823_084003,S04,4,27.51,27.51,220,220,motion_spurt,20.0,100.0,0.75,critical,"Abnormal rapid motion detected at S04 (Energy: 30.7%, Velocity: 0.0px/s)",,
+evt_0024,sess_20260823_084003,S04,4,28.51,28.51,228,228,object_unregistered,40.0,100.0,0.31,critical,"Unregistered object (bottle) appeared at S04 at 00:28, not present during calibration",,
+evt_0025,sess_20260823_084003,S04,4,28.51,29.38,214,235,candidate_talking,40.0,100.0,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0026,sess_20260823_084003,S04,4,32.01,32.01,256,256,object_unregistered,40.0,100.0,0.36,critical,"Unregistered object (chair) appeared at S04 at 00:32, not present during calibration",,
+evt_0027,sess_20260823_084003,S03,2,33.26,33.26,266,266,object_chit,60.0,100.0,0.29,critical,"Prohibited paper/chit detected at S03 (on desk, conf 0.36)",/api/clips/evt_0027,/api/thumbs/evt_0027
+evt_0028,sess_20260823_084003,S04,4,23.63,34.76,0,278,repeated_action,25.0,100.0,0.9,critical,"7 separate events in 11s: candidate_talking, head_turn, candidate_talking",,
+evt_0029,sess_20260823_084003,S04,4,35.01,35.01,280,280,object_unregistered,40.0,100.0,0.35,critical,"Unregistered object (chair) appeared at S04 at 00:35, not present during calibration",,
+evt_0030,sess_20260823_084003,S04,4,35.01,35.88,266,287,candidate_talking,40.0,100.0,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0031,sess_20260823_084003,S05,3,39.76,39.76,318,318,object_unregistered,40.0,51.9,0.65,warning,"Unregistered object (mouse) appeared at S05 at 00:39, not present during calibration",,
+evt_0032,sess_20260823_084003,S04,4,40.01,40.88,306,327,candidate_talking,40.0,100.0,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0033,sess_20260823_084003,S04,4,42.51,42.51,340,340,object_unregistered,40.0,100.0,0.32,critical,"Unregistered object (bottle) appeared at S04 at 00:42, not present during calibration",,
+evt_0034,sess_20260823_084003,S04,4,28.51,44.76,-48,358,repeated_action,25.0,100.0,0.9,critical,"6 separate events in 16s: candidate_talking, candidate_talking, candidate_talking",,
+evt_0035,sess_20260823_084003,S03,5,45.76,45.76,366,366,object_unregistered,40.0,100.0,0.66,critical,"Unregistered object (mouse) appeared at S03 at 00:45, not present during calibration",,
+evt_0036,sess_20260823_084003,S05,3,46.51,46.51,372,372,object_unregistered,40.0,81.7,0.34,warning,"Unregistered object (laptop) appeared at S05 at 00:46, not present during calibration",,
+evt_0037,sess_20260823_084003,S04,4,48.01,48.01,384,384,object_unregistered,40.0,100.0,0.3,critical,"Unregistered object (bottle) appeared at S04 at 00:48, not present during calibration",,
+evt_0038,sess_20260823_084003,S04,4,48.01,48.89,370,391,candidate_talking,40.0,100.0,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0039,sess_20260823_084003,S04,4,53.76,54.64,416,437,candidate_talking,40.0,100.0,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0040,sess_20260823_084003,S04,4,40.01,54.76,70,438,repeated_action,25.0,100.0,0.9,warning,"6 separate events in 14s: candidate_talking, candidate_talking, candidate_talking",,
+evt_0041,sess_20260823_084003,S04,4,59.01,59.01,472,472,object_unregistered,40.0,100.0,0.43,critical,"Unregistered object (chair) appeared at S04 at 00:59, not present during calibration",,
+evt_0042,sess_20260823_084003,S04,4,58.64,59.51,455,476,candidate_talking,40.0,100.0,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0043,sess_20260823_084003,S04,4,62.02,62.02,496,496,object_unregistered,40.0,100.0,0.35,critical,"Unregistered object (chair) appeared at S04 at 01:02, not present during calibration",,
+evt_0044,sess_20260823_084003,S05,8,64.02,64.02,512,512,object_unregistered,40.0,95.5,0.65,warning,"Unregistered object (mouse) appeared at S05 at 01:04, not present during calibration",,
+evt_0045,sess_20260823_084003,S04,4,63.52,64.39,494,515,candidate_talking,40.0,100.0,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0046,sess_20260823_084003,S04,4,53.76,64.77,243,518,repeated_action,25.0,100.0,0.9,critical,"6 separate events in 11s: candidate_talking, candidate_talking, candidate_talking",,
+evt_0047,sess_20260823_084003,S04,4,68.39,69.27,533,554,candidate_talking,40.0,100.0,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0048,sess_20260823_084003,S05,3,71.77,71.77,574,574,object_unregistered,40.0,100.0,0.31,critical,"Unregistered object (laptop) appeared at S05 at 01:11, not present during calibration",/api/clips/evt_0048,/api/thumbs/evt_0048
+evt_0049,sess_20260823_084003,S02,1,71.39,72.39,554,579,head_turn,10.0,10.0,0.95,warning,"Head turned left, 4.3 deviations from own baseline, held 1.0s",,
+evt_0050,sess_20260823_084003,S03,5,74.02,74.02,592,592,object_unregistered,40.0,97.6,0.61,warning,"Unregistered object (mouse) appeared at S03 at 01:14, not present during calibration",,
+evt_0051,sess_20260823_084003,S04,4,73.27,74.14,572,593,candidate_talking,40.0,100.0,0.85,critical,Candidate turned towards S02 (talking / mutual gaze observed for 0.9s),,
+evt_0052,sess_20260823_084003,S04,4,63.52,74.77,317,598,repeated_action,25.0,100.0,0.9,critical,"6 separate events in 11s: candidate_talking, candidate_talking, candidate_talking",,

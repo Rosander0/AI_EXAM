@@ -1,2 +1,97 @@
 @import "tailwindcss";
-@custom-variant dark (&:is(.dark *));
+
+@layer base {
+
+  /* Warm Charcoal Gradient Theme (Default - NO Blue, NO Purple, NO Neon) */
+  :root,
+  .theme-dark {
+    --bg-app: linear-gradient(145deg, #111317 0%, #181a20 50%, #202229 100%);
+    --bg-sidebar: linear-gradient(180deg, #15171c 0%, #1c1e24 100%);
+    --bg-surface: #1d1f26;
+    --bg-card: #23252e;
+    --bg-hover: #2a2d37;
+
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-medium: rgba(255, 255, 255, 0.15);
+    --border-focus: #f97316;
+
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+
+    --accent-orange: #f97316;
+    --accent-amber: #f59e0b;
+    --accent-emerald: #10b981;
+    --accent-red: #ef4444;
+
+    --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.4);
+    --shadow-dropdown: 0 10px 20px -3px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Warm Linen Light Theme (NO Blue, NO Purple, NO Neon) */
+  .theme-light {
+    --bg-app: linear-gradient(145deg, #f7f6f2 0%, #edebe4 100%);
+    --bg-sidebar: #ffffff;
+    --bg-surface: #eae7df;
+    --bg-card: #ffffff;
+    --bg-hover: #f5f3ec;
+
+    --border-subtle: #e2dfd7;
+    --border-medium: #cbd5e1;
+    --border-focus: #ea580c;
+
+    --text-primary: #18181b;
+    --text-secondary: #52525b;
+    --text-muted: #8c857b;
+
+    --accent-orange: #ea580c;
+    --accent-amber: #d97706;
+    --accent-emerald: #059669;
+    --accent-red: #dc2626;
+
+    --shadow-card: 0 2px 8px -1px rgba(0, 0, 0, 0.06);
+    --shadow-dropdown: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  body {
+    background: var(--bg-app);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: -0.011em;
+    overflow-x: hidden;
+  }
+}
+
+/* Surface Cards */
+.saas-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.875rem;
+  box-shadow: var(--shadow-card);
+  transition: all 0.15s ease-in-out;
+}
+
+.saas-card-hover:hover {
+  border-color: var(--border-medium);
+  box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.25);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
